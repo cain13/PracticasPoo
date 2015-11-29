@@ -1,6 +1,7 @@
 package topos.juego;
 
 import topos.elementos.Elemento;
+import topos.elementos.TopoTorpe;
 import topos.estructura.Escenario;
 import topos.estructura.PanelAleatorio;
 import topos.estructura.PanelFlash;
@@ -24,7 +25,7 @@ public class Partida {
 		escenario.setPanel(new PanelResistente(4, 4, 3));
 		
 		// Añade 3 Topos al escenario
-		escenario.addTopos(new Elemento(1,2), new Elemento(5,2), new Elemento(3,4));
+		escenario.addElementos(new TopoTorpe(1,2), new TopoTorpe(5,2), new TopoTorpe(3,4));
 		
 		// Inicia la partida con 60 segundos de juego y 60 disparos
 		escenario.iniciarPartida(60, 60);	

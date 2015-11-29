@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import topos.elementos.Elemento;
+import topos.elementos.TopoTorpe;
 import topos.juego.GestionJuego;
 import topos.vista1.Alarma;
 import topos.vista1.Pantalla;
@@ -181,20 +182,20 @@ public class Escenario {
 	 * @param topos los topos que se quieren insertar en el ecenario.
 	 * @return devuelve la lista de topos rechazados.
 	 */
-	public LinkedList<Elemento> addTopos(Elemento... topos){
-		LinkedList<Elemento> toposRechazados = new LinkedList<Elemento>();
+	public LinkedList<Elemento> addElementos(Elemento... elementos){
+		LinkedList<Elemento> elementosRechazados = new LinkedList<Elemento>();
 		
-		for(Elemento elemento : topos){
-			if(!hayTopo(elemento.getPosicionTopo())){
+		for(Elemento elemento : elementos){
+			if(!hayElemento(elemento.getPosicion())){
 				elemento.setEscenario(this);
 				// Compruebo que el topo este dentro del escenario antes de insertarlo
-				if(estaDentro(elemento.getPosicionTopo()))
+				if(estaDentro(elemento.getPosicion()))
 					this.elementos.add(elemento);
 			}else{
-				toposRechazados.add(elemento);
+				elementosRechazados.add(elemento);
 			}	
 		}
-		return toposRechazados;
+		return elementosRechazados;
 	}
 	
 	/**
@@ -202,10 +203,10 @@ public class Escenario {
 	 * @param posicion la cual queremos comprobar si hay topo.
 	 * @return devuelve el objeto topo que se encuentra en esa posción o nulo si no hay topo.
 	 */
-	public Elemento getTopo(Posicion posicion){
+	public Elemento getElemento(Posicion posicion){
 		for(Elemento elemento : elementos){
-			if(elemento.getPosicionTopo().getX() == posicion.getX() && 
-					elemento.getPosicionTopo().getY() == posicion.getY())
+			if(elemento.getPosicion().getX() == posicion.getX() && 
+					elemento.getPosicion().getY() == posicion.getY())
 				return elemento;
 		}
 		return null;
@@ -216,8 +217,8 @@ public class Escenario {
 	 * @param posicion la cual queremos comprobar si hay topo. 
 	 * @return boolean que devulve si hay o no topo en esa posición.
 	 */
-	public boolean hayTopo(Posicion posicion){
-		if(getTopo(posicion) != null)
+	public boolean hayElemento(Posicion posicion){
+		if(getElemento(posicion) != null)
 			return true;
 		else
 			return false;
@@ -227,7 +228,7 @@ public class Escenario {
 	 * Método que devuelve una copia de la lista de topos que en el escenario.
 	 * @return devuelve una copia de la lista de topos que hay en el escenario
 	 */
-	public LinkedList<Elemento> getTopos(){
+	public LinkedList<Elemento> getElementos(){
 		return new LinkedList<Elemento>(elementos);
 				
 	}
@@ -250,7 +251,7 @@ public class Escenario {
 	 */
 	public void iniciarPartida(int segundos, int disparos){
 		partida = new GestionJuego(segundos, disparos);
-		setCantidadTopos(getTopos().size());
+		setCantidadTopos(getElementos().size());
 		partida.arrancaPartida();
 		partida.setEscenario(this);
 		pantalla = new Pantalla(this.ancho, this.alto,ANCHO_LADO,COLOR_FONDO);
@@ -301,7 +302,7 @@ public class Escenario {
 			}
 		}
 		for(Elemento elemento : elementos){
-			elemento.actuar();
+			//elemento.actuar();
 		}
 	}
 	
@@ -316,14 +317,14 @@ public class Escenario {
 				this.partida.restaDisparo(); // Resto un disparo
 				this.getPanel(new Posicion(this.objetivo)).golpear();
 			}else{
-				if(this.hayTopo(new Posicion(this.objetivo))){
+				if(this.hayElemento(new Posicion(this.objetivo))){
 					// Variable local para guardar la referencia al topo.
-					Elemento topoAux = this.getTopo(this.objetivo);
+					Elemento elementoAuxiliar = this.getElemento(this.objetivo);
 					this.partida.restaDisparo(); // Resto un disparo
 					this.partida.restaTopos();  // Resto un topo de los que hay jugando Implementacion Extra
-					topoAux.actualizaPartida(this.partida);
-					topoAux.setEscenario(null);
-					this.elementos.remove(topoAux);
+					elementoAuxiliar.actualizarPartida(this.partida);
+					elementoAuxiliar.setEscenario(null);
+					this.elementos.remove(elementoAuxiliar);
 				}
 			}
 		}
@@ -345,9 +346,9 @@ public class Escenario {
 		}
 		
 		for(Elemento elemento : elementos){
-			if(esVisible(elemento.getPosicionTopo())){
-				pantalla.addImagen(elemento.getPosicionTopo().getX(),elemento.getPosicionTopo().getY(),
-						elemento.getImagenTopo());
+			if(esVisible(elemento.getPosicion())){
+				pantalla.addImagen(elemento.getPosicion().getX(),elemento.getPosicion().getY(),
+						elemento.getImagenElemento());
 			}
 		}
 		pantalla.addImagen(this.objetivo.getX(), this.objetivo.getY(), "imagenes/objetivo.png");
@@ -388,12 +389,12 @@ public class Escenario {
 		int x = random.nextInt(ancho-1);
 		int y = random.nextInt(alto-1);
 		for(int i = 0; i < ancho; i++){
-			while(hayTopo(new Posicion(x,y))){
+			while(hayElemento(new Posicion(x,y))){
 				x = random.nextInt(ancho-1);
 				y = random.nextInt(alto-1);
 			}
-			Elemento elemento = new Elemento(x,y);
-			addTopos(elemento);
+			Elemento elemento = new TopoTorpe(x,y);
+			addElementos(elemento);
 		}
 	}
 	

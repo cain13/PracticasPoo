@@ -3,6 +3,7 @@ package topos.pruebas;
 import java.util.LinkedList;
 
 import topos.elementos.Elemento;
+import topos.elementos.TopoTorpe;
 import topos.estructura.Direccion;
 import topos.estructura.Escenario;
 import topos.estructura.PanelBasico;
@@ -60,27 +61,27 @@ public class PruebaEscenario {
 		System.out.println("Practica POO topo - Sesion4");
 		
 		// Creo el topo1 en la posicion (1,2) y el topo2 en la posicion (2,3)
-		Elemento topo1 = new Elemento(1,2);
-		Elemento topo2 = new Elemento(2,3);
+		Elemento topo1 = new TopoTorpe(1,2);
+		Elemento topo2 = new TopoTorpe(2,3);
 
 		// Añado los topos 1 y 2 a la lista y compruebo si alguno es rechazado
-		System.out.println("Topos rechazados: "+escenario.addTopos(topo1, topo2));
+		System.out.println("Topos rechazados: "+escenario.addElementos(topo1, topo2));
 		
 		// Muestro el tamaño de la lista que tiene que ser igual a 2
-		System.out.println("Topos en el escenario "+escenario.getTopos().size());
+		System.out.println("Topos en el escenario "+escenario.getElementos().size());
 
 		// Compruebo si el topo1 es igual al topo que esta en la posicion (1,2) de la lista
 		System.out.println("Son iguales el topo en la posicion (1,2) y el topo1? "+
-				topo1.equals(escenario.getTopo(new Posicion(1,2))));
+				topo1.equals(escenario.getElemento(new Posicion(1,2))));
 		
 		// Creo el topo3 en la posicion (2,3)
-		Elemento topo3 = new Elemento(2,3);
+		Elemento topo3 = new TopoTorpe(2,3);
 		
 		// Lo añado a la lista y compruebo que es rechazado
-		System.out.println("Topos rechazados: "+escenario.addTopos(topo3));
+		System.out.println("Topos rechazados: "+escenario.addElementos(topo3));
 		
 		// Compruebo el tamaño de la lista para ver que el topo3 no a sido añadido
-		System.out.println("Topos en el escenario "+escenario.getTopos().size());
+		System.out.println("Topos en el escenario "+escenario.getElementos().size());
 		
 		// Compruebo que el topo tiene escenario y que es igual al esceanrio actual
 		System.out.println("El topo1 esta en el escenario " + topo1.getEscenario()+

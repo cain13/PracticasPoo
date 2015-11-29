@@ -10,7 +10,7 @@ import topos.juego.GestionJuego;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
-public class TopoTorpe {
+public class TopoTorpe extends Elemento{
 	// Propiedades implementadas en la Sesion 2
 	private Posicion posicionTopo;
 	
@@ -29,7 +29,7 @@ public class TopoTorpe {
 	 * @param y valor entero para inicializar el topo en el valor de la coordenada y.
 	 */
 	public TopoTorpe(int x, int y){
-		this.posicionTopo = new Posicion(x,y);
+		super(x, y);
 		this.escenario = null;
 		this.instanteActual = System.currentTimeMillis();
 	}
@@ -84,7 +84,7 @@ public class TopoTorpe {
 				Direccion direccion = Direccion.direccionAleatoria();
 				Posicion aleatoria = this.getPosicionTopo().getVecina(direccion);
 				
-				if(this.getEscenario().estaDentro(aleatoria) && !this.getEscenario().hayTopo(aleatoria)
+				if(this.getEscenario().estaDentro(aleatoria) && !this.getEscenario().hayElemento(aleatoria)
 						&& escenario.getPanel(aleatoria).esVisible()){
 					this.desplazarTopo(direccion);
 					instanteActual = System.currentTimeMillis();
@@ -97,18 +97,18 @@ public class TopoTorpe {
 	 * Método al cazar/golpear un topo actualiza la partida sumando un punto por atrapar un topo.
 	 * @param juego referencia a GestionJuego para sumar un punto 
 	 */
-	public void actualizaPartida(GestionJuego juego){
-		juego.sumaPuntos(1);
+	@Override
+	public void actualizarPartida(GestionJuego partida) {
+		// TODO Apéndice de método generado automáticamente
+		partida.sumaPuntos(1);
 	}
-	
-	
-	
 	/**
 	 * Método que devuelve la ruta en la que esta la imagen del topo.
 	 * @return String con la ruta de la imagen del topo.
 	 */
-	public String getImagenTopo(){
+	@Override
+	public String getImagenElemento() {
+		// TODO Apéndice de método generado automáticamente
 		return "imagenes/topo.png";
 	}
-	// Fin implementacion Sesion 5 
 }

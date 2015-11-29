@@ -84,7 +84,7 @@ public class TopoPadre {
 				Direccion direccion = Direccion.direccionAleatoria();
 				Posicion aleatoria = this.getPosicionTopo().getVecina(direccion);
 				
-				if(this.getEscenario().estaDentro(aleatoria) && !this.getEscenario().hayTopo(aleatoria)
+				if(this.getEscenario().estaDentro(aleatoria) && !this.getEscenario().hayElemento(aleatoria)
 						&& escenario.getPanel(aleatoria).esVisible()){
 					this.desplazarTopo(direccion);
 					instanteActual = System.currentTimeMillis();
