@@ -1,7 +1,6 @@
 package topos.elementos;
 
 import topos.estructura.Direccion;
-import topos.estructura.Escenario;
 import topos.estructura.Posicion;
 import topos.juego.GestionJuego;
 /**
@@ -10,12 +9,8 @@ import topos.juego.GestionJuego;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
-public class TopoTorpe extends Elemento{
-	// Propiedades implementadas en la Sesion 2
-	private Posicion posicionTopo;
-	
-	// Propiedades implementadas en la Sesion 4
-	private Escenario escenario;
+public class TopoTorpe extends ElementoActivo{
+
 	
 	// Propiedades implementadas en la Sesion 5
 	private static final long ESPERA_MOVIMIENTOS = 1000; 
@@ -30,7 +25,7 @@ public class TopoTorpe extends Elemento{
 	 */
 	public TopoTorpe(int x, int y){
 		super(x, y);
-		this.escenario = null;
+		super.escenario = null;
 		this.instanteActual = System.currentTimeMillis();
 	}
 	
@@ -39,46 +34,20 @@ public class TopoTorpe extends Elemento{
 	 * @return Posicion, devuelve una copia de la posicion del topo.
 	 */
 	public Posicion getPosicionTopo(){
-		return new Posicion(posicionTopo);
+		return new Posicion(posicion);
 	}
 	
-	/**
-	 * Método para desplazar la posicion del topo en una direccion 
-	 * incrementando/decrementando x o y, en un desplazamiento . 
-	 * @see topos.estructura.Posicion#desplazar(int, int)
-	 * @param direccion Enumerador con la direccion a desplazar. Debe ser un tipo de dato Direccion.
-	 */
-	public void desplazarTopo(Direccion direccion){
-		this.posicionTopo.desplazar(direccion);
-	}
-	// Fin implementacion Sesion 2
 	
-	// Implementado en la Sesion 4
-	/**
-	 * Método que actualiza la referencia del escenario del topo al escenario en el que se encuentra.
-	 * @param escenario, escenario en el que es añadido (pertenece) el topo.
-	 */
-	public void setEscenario(Escenario escenario){
-		this.escenario = escenario;
-	}
 	
-	/**
-	 * Método que devuelve el escenario actual al que hace referencia el topo.
-	 * @return escenario en el que esta el topo.
-	 */
-	public Escenario getEscenario(){
-		return this.escenario;
-	}
-	// Fin implementacion Sesion 4
-	
-	// Implementado en la Sesion 5
 	/**
 	 * Método que comprueba si el topo tiene un escenario asignado y si en la posicion del topo el panel que hay es visible,
 	 * despues comprueba si a pasado el tiempo de espera para poder moverse y si es asi crea una direccion aleatoria y
 	 * comprueba si hay si puede desplazarse a esa direccion y si no hay un topo en esa direccion, 
 	 * lo desplaza en la direccion aleatoria y actualiza el instanteActual al tiempo en el que se desplaza. 
+	 * @return 
 	 */
-	public void actuar(){
+	@Override
+	public boolean actuar(){
 		if(this.getEscenario() != null && !this.getEscenario().esVisible(this.getPosicionTopo())){
 			if((System.currentTimeMillis() - instanteActual) > ESPERA_MOVIMIENTOS){
 				Direccion direccion = Direccion.direccionAleatoria();
@@ -86,11 +55,19 @@ public class TopoTorpe extends Elemento{
 				
 				if(this.getEscenario().estaDentro(aleatoria) && !this.getEscenario().hayElemento(aleatoria)
 						&& escenario.getPanel(aleatoria).esVisible()){
-					this.desplazarTopo(direccion);
+					this.desplazar(direccion);
 					instanteActual = System.currentTimeMillis();
+					return true;
 				}
 			}
 		}
+		return false;
+	}
+	
+	@Override
+	public void desplazar(Direccion direccion) {
+		// TODO Apéndice de método generado automáticamente
+		this.posicion.desplazar(direccion);
 	}
 	
 	/**
@@ -109,6 +86,6 @@ public class TopoTorpe extends Elemento{
 	@Override
 	public String getImagenElemento() {
 		// TODO Apéndice de método generado automáticamente
-		return "imagenes/topo.png";
+		return "imagenes/topo-torpe.png";
 	}
 }

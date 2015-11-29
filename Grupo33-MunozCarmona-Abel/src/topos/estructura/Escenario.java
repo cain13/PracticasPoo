@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import topos.elementos.Elemento;
+import topos.elementos.ElementoActivo;
 import topos.elementos.TopoTorpe;
 import topos.juego.GestionJuego;
 import topos.vista1.Alarma;
@@ -302,7 +303,7 @@ public class Escenario {
 			}
 		}
 		for(Elemento elemento : elementos){
-			//elemento.actuar();
+			((ElementoActivo) elemento).actuar();
 		}
 	}
 	
