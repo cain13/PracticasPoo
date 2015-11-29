@@ -10,7 +10,7 @@ import topos.juego.GestionJuego;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
-public class Topo {
+public class TopoTorpe {
 	// Propiedades implementadas en la Sesion 2
 	private Posicion posicionTopo;
 	
@@ -28,7 +28,7 @@ public class Topo {
 	 * @param x valor entero para inicializar el topo en el valor de la coordenada x.
 	 * @param y valor entero para inicializar el topo en el valor de la coordenada y.
 	 */
-	public Topo(int x, int y){
+	public TopoTorpe(int x, int y){
 		this.posicionTopo = new Posicion(x,y);
 		this.escenario = null;
 		this.instanteActual = System.currentTimeMillis();

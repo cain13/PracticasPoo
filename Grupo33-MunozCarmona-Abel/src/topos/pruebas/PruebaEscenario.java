@@ -2,7 +2,7 @@ package topos.pruebas;
 
 import java.util.LinkedList;
 
-import topos.elementos.Topo;
+import topos.elementos.Elemento;
 import topos.estructura.Direccion;
 import topos.estructura.Escenario;
 import topos.estructura.PanelBasico;
@@ -60,8 +60,8 @@ public class PruebaEscenario {
 		System.out.println("Practica POO topo - Sesion4");
 		
 		// Creo el topo1 en la posicion (1,2) y el topo2 en la posicion (2,3)
-		Topo topo1 = new Topo(1,2);
-		Topo topo2 = new Topo(2,3);
+		Elemento topo1 = new Elemento(1,2);
+		Elemento topo2 = new Elemento(2,3);
 
 		// Añado los topos 1 y 2 a la lista y compruebo si alguno es rechazado
 		System.out.println("Topos rechazados: "+escenario.addTopos(topo1, topo2));
@@ -74,7 +74,7 @@ public class PruebaEscenario {
 				topo1.equals(escenario.getTopo(new Posicion(1,2))));
 		
 		// Creo el topo3 en la posicion (2,3)
-		Topo topo3 = new Topo(2,3);
+		Elemento topo3 = new Elemento(2,3);
 		
 		// Lo añado a la lista y compruebo que es rechazado
 		System.out.println("Topos rechazados: "+escenario.addTopos(topo3));
