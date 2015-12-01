@@ -11,7 +11,7 @@ public class PruebaTopo {
 		System.out.println("Practica POO topo - Sesion2");
 		
 		// Creo un topo en la posicion (0,0)
-		Elemento elemento = new TopoTorpe(0,0);
+		Elemento elemento = new TopoTorpe(0,0,1);
 		
 		/*  / Desplazo el topo a la derecha
 		elemento.desplazar(Direccion.DERECHA);

@@ -61,8 +61,8 @@ public class PruebaEscenario {
 		System.out.println("Practica POO topo - Sesion4");
 		
 		// Creo el topo1 en la posicion (1,2) y el topo2 en la posicion (2,3)
-		Elemento topo1 = new TopoTorpe(1,2);
-		Elemento topo2 = new TopoTorpe(2,3);
+		Elemento topo1 = new TopoTorpe(1,2,1);
+		Elemento topo2 = new TopoTorpe(2,3,1);
 
 		// Añado los topos 1 y 2 a la lista y compruebo si alguno es rechazado
 		System.out.println("Topos rechazados: "+escenario.addElementos(topo1, topo2));
@@ -75,7 +75,7 @@ public class PruebaEscenario {
 				topo1.equals(escenario.getElemento(new Posicion(1,2))));
 		
 		// Creo el topo3 en la posicion (2,3)
-		Elemento topo3 = new TopoTorpe(2,3);
+		Elemento topo3 = new TopoTorpe(2,3,1);
 		
 		// Lo añado a la lista y compruebo que es rechazado
 		System.out.println("Topos rechazados: "+escenario.addElementos(topo3));

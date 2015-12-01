@@ -25,7 +25,7 @@ public class Partida {
 		escenario.setPanel(new PanelResistente(4, 4, 3));
 		
 		// Añade 3 Topos al escenario
-		escenario.addElementos(new TopoTorpe(1,2), new TopoTorpe(5,2), new TopoTorpe(3,4));
+		//escenario.addElementos(new TopoTorpe(1,2), new TopoTorpe(5,2), new TopoTorpe(3,4));
 		
 		// Inicia la partida con 60 segundos de juego y 60 disparos
 		escenario.iniciarPartida(60, 60);	

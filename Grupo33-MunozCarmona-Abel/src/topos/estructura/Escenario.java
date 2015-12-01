@@ -1,11 +1,15 @@
 package topos.estructura;
 
 import java.awt.Color;
+import java.util.Base64.Decoder;
 import java.util.LinkedList;
 import java.util.Random;
 
 import topos.elementos.Elemento;
 import topos.elementos.ElementoActivo;
+import topos.elementos.Rata;
+import topos.elementos.TopoCiego;
+import topos.elementos.TopoListo;
 import topos.elementos.TopoTorpe;
 import topos.juego.GestionJuego;
 import topos.vista1.Alarma;
@@ -376,7 +380,7 @@ public class Escenario {
 			pantalla.dibujar();
 		}
 		panelesAleatorios();
-		toposAleatorios();
+		ElementosActivosAleatorios();
 		this.iniciarPartida(segundos,disparos);
 		
 	}
@@ -385,7 +389,7 @@ public class Escenario {
 	 * Método que añade un numero de topos segun el ancho del escenario y 
 	 * los posiciona aleatoriamente en el escenario, 
 	 */
-	private void toposAleatorios(){
+	private void ElementosActivosAleatorios(){
 		Random random = new Random();
 		int x = random.nextInt(ancho-1);
 		int y = random.nextInt(alto-1);
@@ -394,8 +398,28 @@ public class Escenario {
 				x = random.nextInt(ancho-1);
 				y = random.nextInt(alto-1);
 			}
-			Elemento elemento = new TopoTorpe(x,y);
-			addElementos(elemento);
+			switch(i%4){
+				case 0:
+					Elemento elemento = new TopoTorpe(x,y,1);
+					addElementos(elemento);
+					break;
+				case 1:
+					Elemento elemento1 = new TopoCiego(x,y,2);
+					addElementos(elemento1);
+					break;
+				case 2:
+					Elemento elemento2 = new TopoListo(x,y,3);
+					addElementos(elemento2);
+					break;
+				case 3:
+					Elemento elemento3 = new Rata(x,y,-1);
+					addElementos(elemento3);
+					break;
+				default:
+					Elemento elemento4 = new TopoCiego(x,y,2);
+					addElementos(elemento4);		
+				break;
+			}
 		}
 	}
 	

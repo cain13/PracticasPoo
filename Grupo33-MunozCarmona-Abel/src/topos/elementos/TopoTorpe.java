@@ -11,11 +11,6 @@ import topos.juego.GestionJuego;
  */
 public class TopoTorpe extends ElementoActivo{
 
-	
-	// Propiedades implementadas en la Sesion 5
-	private static final long ESPERA_MOVIMIENTOS = 1000; 
-	private long instanteActual;
-	
 	/**
 	 * Construcor que construye un objeto topo el cual inicializa en la posicion recibida por parametro x e y, 
 	 * con el escenario con valor nulo para despues pasarle la referencia del escenario en el que esta el topo,
@@ -23,21 +18,10 @@ public class TopoTorpe extends ElementoActivo{
 	 * @param x valor entero para inicializar el topo en el valor de la coordenada x.
 	 * @param y valor entero para inicializar el topo en el valor de la coordenada y.
 	 */
-	public TopoTorpe(int x, int y){
-		super(x, y);
-		super.escenario = null;
-		this.instanteActual = System.currentTimeMillis();
+	public TopoTorpe(int x, int y,int puntos){
+		super(x, y, puntos);
 	}
-	
-	/**
-	 * Método que devuelve la copia de la posicion del topo al que hace referencia la llamada.
-	 * @return Posicion, devuelve una copia de la posicion del topo.
-	 */
-	public Posicion getPosicionTopo(){
-		return new Posicion(posicion);
-	}
-	
-	
+
 	
 	/**
 	 * Método que comprueba si el topo tiene un escenario asignado y si en la posicion del topo el panel que hay es visible,
@@ -48,13 +32,12 @@ public class TopoTorpe extends ElementoActivo{
 	 */
 	@Override
 	public boolean actuar(){
-		if(this.getEscenario() != null && !this.getEscenario().esVisible(this.getPosicionTopo())){
+		if(this.getEscenario() != null && puedeMoverse()){
 			if((System.currentTimeMillis() - instanteActual) > ESPERA_MOVIMIENTOS){
-				Direccion direccion = Direccion.direccionAleatoria();
-				Posicion aleatoria = this.getPosicionTopo().getVecina(direccion);
+				Direccion direccion = calculaDireccion();
+				Posicion aleatoria = this.getPosicion().getVecina(direccion);
 				
-				if(this.getEscenario().estaDentro(aleatoria) && !this.getEscenario().hayElemento(aleatoria)
-						&& escenario.getPanel(aleatoria).esVisible()){
+				if(this.getEscenario().estaDentro(aleatoria) && !this.getEscenario().hayElemento(aleatoria)){
 					this.desplazar(direccion);
 					instanteActual = System.currentTimeMillis();
 					return true;
@@ -66,9 +49,11 @@ public class TopoTorpe extends ElementoActivo{
 	
 	@Override
 	public void desplazar(Direccion direccion) {
-		// TODO Apéndice de método generado automáticamente
+		
 		this.posicion.desplazar(direccion);
 	}
+	
+	
 	
 	/**
 	 * Método al cazar/golpear un topo actualiza la partida sumando un punto por atrapar un topo.
@@ -77,7 +62,7 @@ public class TopoTorpe extends ElementoActivo{
 	@Override
 	public void actualizarPartida(GestionJuego partida) {
 		// TODO Apéndice de método generado automáticamente
-		partida.sumaPuntos(1);
+		partida.sumaPuntos(this.puntos);
 	}
 	/**
 	 * Método que devuelve la ruta en la que esta la imagen del topo.
@@ -88,4 +73,25 @@ public class TopoTorpe extends ElementoActivo{
 		// TODO Apéndice de método generado automáticamente
 		return "imagenes/topo-torpe.png";
 	}
+
+
+	@Override
+	public boolean puedeMoverse() {
+		// TODO Apéndice de método generado automáticamente
+		if(!this.getEscenario().esVisible(this.getPosicion())){
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public Direccion calculaDireccion() {
+		Direccion direccion = Direccion.direccionAleatoria();
+		
+		return direccion;
+	}
+
+
+	
 }
