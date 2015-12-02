@@ -96,6 +96,12 @@ public class GestionJuego {
 	public void sumaPuntos(int puntos){
 		this.puntos += puntos;
 	}
+	public void sumaDisparos(int disparos){
+		this.disparosRestantes += disparos;
+	}
+	public void sumaTiempo(int disparos){
+		this.disparosRestantes += disparos;
+	}
 	
 	/**
 	 * Método que crea una marca de tiempo al iniciar la partida.

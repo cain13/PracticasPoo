@@ -1,7 +1,5 @@
 package topos.elementos;
 
-import topos.estructura.Direccion;
-
 public abstract class ElementoPasivo extends Elemento {
 
 	protected final int cantidad;

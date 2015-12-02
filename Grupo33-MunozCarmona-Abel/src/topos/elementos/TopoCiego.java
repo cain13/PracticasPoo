@@ -9,7 +9,7 @@ import topos.juego.GestionJuego;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
-public class TopoCiego extends ElementoActivo{
+public class TopoCiego extends TopoPadre{
 
 	private Direccion ultimaDireccion;
 	/**

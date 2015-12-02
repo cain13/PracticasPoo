@@ -1,13 +1,15 @@
 package topos.estructura;
 
 import java.awt.Color;
-import java.util.Base64.Decoder;
 import java.util.LinkedList;
 import java.util.Random;
 
 import topos.elementos.Elemento;
 import topos.elementos.ElementoActivo;
+import topos.elementos.Monedas;
+import topos.elementos.Municion;
 import topos.elementos.Rata;
+import topos.elementos.Tiempo;
 import topos.elementos.TopoCiego;
 import topos.elementos.TopoListo;
 import topos.elementos.TopoTorpe;
@@ -307,7 +309,9 @@ public class Escenario {
 			}
 		}
 		for(Elemento elemento : elementos){
-			((ElementoActivo) elemento).actuar();
+			if(elemento instanceof ElementoActivo)
+				((ElementoActivo) elemento).actuar();
+			
 		}
 	}
 	
@@ -381,6 +385,7 @@ public class Escenario {
 		}
 		panelesAleatorios();
 		ElementosActivosAleatorios();
+		 ElementosPasivosAleatorios();
 		this.iniciarPartida(segundos,disparos);
 		
 	}
@@ -393,6 +398,7 @@ public class Escenario {
 		Random random = new Random();
 		int x = random.nextInt(ancho-1);
 		int y = random.nextInt(alto-1);
+		Elemento elemento = null;
 		for(int i = 0; i < ancho; i++){
 			while(hayElemento(new Posicion(x,y))){
 				x = random.nextInt(ancho-1);
@@ -400,29 +406,60 @@ public class Escenario {
 			}
 			switch(i%4){
 				case 0:
-					Elemento elemento = new TopoTorpe(x,y,1);
+					elemento = new TopoTorpe(x,y,1);
 					addElementos(elemento);
 					break;
 				case 1:
-					Elemento elemento1 = new TopoCiego(x,y,2);
-					addElementos(elemento1);
+					elemento = new TopoCiego(x,y,2);
+					addElementos(elemento);
 					break;
 				case 2:
-					Elemento elemento2 = new TopoListo(x,y,3);
-					addElementos(elemento2);
+					elemento = new TopoListo(x,y,3);
+					addElementos(elemento);
 					break;
 				case 3:
-					Elemento elemento3 = new Rata(x,y,-1);
-					addElementos(elemento3);
+					elemento = new Rata(x,y,-1);
+					addElementos(elemento);
 					break;
+				
 				default:
-					Elemento elemento4 = new TopoCiego(x,y,2);
-					addElementos(elemento4);		
+					elemento = new TopoCiego(x,y,2);
+					addElementos(elemento);		
 				break;
 			}
 		}
 	}
-	
+	private void ElementosPasivosAleatorios(){
+		Random random = new Random();
+		int x = random.nextInt(ancho-1);
+		int y = random.nextInt(alto-1);
+		Elemento elemento = null;
+		for(int i = 0; i < ancho; i++){
+			while(hayElemento(new Posicion(x,y))){
+				x = random.nextInt(ancho-1);
+				y = random.nextInt(alto-1);
+			}
+			switch(i%3){
+		
+				case 0:
+					elemento= new Monedas(x,y,5);
+					addElementos(elemento);
+					break;
+				case 1:
+					elemento= new Municion(x,y,5);
+					addElementos(elemento);
+					break;
+				case 2:
+					elemento= new Tiempo(x,y,5);
+					addElementos(elemento);
+					break;
+				default:
+					elemento = new Monedas(x,y,5);
+					addElementos(elemento);		
+				break;
+			}
+		}
+	}
 	/**
 	 * Método que coloca en las tres primeras columnas un tipo distinto de panel heredado de panel basico y
 	 * el resto de columnas asta completar el ancho coloca un tipo de panel heredad aleatoriamente.
