@@ -2,7 +2,7 @@ package topos.elementos;
 
 import topos.estructura.Direccion;
 
-public abstract class ElementoActivo extends Elemento{
+public abstract class ElementoActivo extends Elemento implements InterfazControl{
 	
 	protected static final int ESPERA_MOVIMIENTOS = 1000;
 	protected long instanteActual;

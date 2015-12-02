@@ -8,14 +8,14 @@ public class PruebaGestionJuego {
 		System.out.println("Practica POO topo - Sesion4");
 		
 		// Creo el onjeto GestionJuego con 60 segundos y 3 disparos
-		GestionJuego juego  = new GestionJuego(60,3);
+		GestionJuego juego  = new GestionJuego(60,3,10);
 		
 		// Arranco la partida
 		juego.arrancaPartida();
 		
 		// Muestro por pantalla que si la partida a comenzado y la puntuacion
 		System.out.println("Ha comenzado la partida? "+ juego.enJuego());
-		System.out.println("Puntucion: "+ juego.getPuntos());
+		System.out.println("Puntucion: "+ juego.getPuntosPendientes());
 	
 		// Disparo 4 veces y muestro como decrementan los disparos
 		System.out.println("Disparos = "+ juego.getDisparosRestantes());
@@ -28,7 +28,7 @@ public class PruebaGestionJuego {
 		juego.restaDisparo();
 		
 		// Añado 5 puntos
-		juego.sumaPuntos(5);
+		juego.getPuntosPendientes();
 		
 		// Hago una pausa de 4 segundos
 		long fin = System.currentTimeMillis() + 4000;
@@ -39,7 +39,7 @@ public class PruebaGestionJuego {
 		System.out.println("Segundos Restantes " + juego.getSegundosRestates());
 		System.out.println("Ha finalizado el tiempo? " + juego.esFinalizada());
 		System.out.println("Continua la partida? " + juego.enJuego());
-		System.out.println("Puntos " + juego.getPuntos());
+		System.out.println("Puntos " + juego.getPuntosPendientes());
 	}
 
 }

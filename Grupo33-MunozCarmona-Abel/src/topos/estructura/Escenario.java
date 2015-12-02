@@ -6,6 +6,7 @@ import java.util.Random;
 
 import topos.elementos.Elemento;
 import topos.elementos.ElementoActivo;
+import topos.elementos.InterfazControl;
 import topos.elementos.Monedas;
 import topos.elementos.Municion;
 import topos.elementos.Rata;
@@ -28,7 +29,6 @@ import topos.vista1.Pantalla;
  */
 public class Escenario {
 	
-
 	// Propiedades implementadas en la Sesion 3
 	private final int ancho;
 	private final int alto;
@@ -257,8 +257,9 @@ public class Escenario {
 	 * @param disparos entero con la cantidad de disparos posibles.
 	 */
 	public void iniciarPartida(int segundos, int disparos){
-		partida = new GestionJuego(segundos, disparos);
-		setCantidadTopos(getElementos().size());
+		
+		int puntosEnJuego = getElementosPuntables(getElementos());
+		partida = new GestionJuego(segundos, disparos,puntosEnJuego);
 		partida.arrancaPartida();
 		partida.setEscenario(this);
 		pantalla = new Pantalla(this.ancho, this.alto,ANCHO_LADO,COLOR_FONDO);
@@ -330,7 +331,7 @@ public class Escenario {
 					// Variable local para guardar la referencia al topo.
 					Elemento elementoAuxiliar = this.getElemento(this.objetivo);
 					this.partida.restaDisparo(); // Resto un disparo
-					this.partida.restaTopos();  // Resto un topo de los que hay jugando Implementacion Extra
+				
 					elementoAuxiliar.actualizarPartida(this.partida);
 					elementoAuxiliar.setEscenario(null);
 					this.elementos.remove(elementoAuxiliar);
@@ -363,7 +364,7 @@ public class Escenario {
 		pantalla.addImagen(this.objetivo.getX(), this.objetivo.getY(), "imagenes/objetivo.png");
 
 		pantalla.setBarraEstado("Tiempo: " + partida.getSegundosRestates() + 
-				" Disparos: " + partida.getDisparosRestantes() + " Puntos: " + partida.getPuntos());
+				" Disparos: " + partida.getDisparosRestantes() + " Puntos: " + partida.getPuntosPendientes());
 		pantalla.dibujar();
 	}
 	// Fin implementacion Sesion 5	
@@ -385,7 +386,7 @@ public class Escenario {
 		}
 		panelesAleatorios();
 		ElementosActivosAleatorios();
-		 ElementosPasivosAleatorios();
+		ElementosPasivosAleatorios();
 		this.iniciarPartida(segundos,disparos);
 		
 	}
@@ -504,8 +505,16 @@ public class Escenario {
 	 * para poder contabilizar la cantidad de topos con el que se inicializa un escenario.
 	 * @param cantidadTopos valor entero con la cantidad de topos con el que se inicializa la partida. 
 	 */
-	public void setCantidadTopos(int cantidadTopos){
-		this.cantidaTopos = cantidadTopos;
+	public int getElementosPuntables(LinkedList<Elemento> elementos){
+		int puntosTotales = 0;
+		
+		for(Elemento elemento : elementos){
+			if(elemento instanceof InterfazControl){
+				puntosTotales += ((InterfazControl) elemento).getPuntosElementos();
+				
+			}
+		}
+		return puntosTotales;
 	}
 	
 	/**

@@ -63,7 +63,8 @@ public class TopoCiego extends TopoPadre{
 	@Override
 	public void actualizarPartida(GestionJuego partida) {
 		// TODO Apéndice de método generado automáticamente
-		partida.sumaPuntos(this.puntos);
+		
+		partida.calculaPuntosPendientes(this.puntos);
 	}
 	/**
 	 * Método que devuelve la ruta en la que esta la imagen del topo.

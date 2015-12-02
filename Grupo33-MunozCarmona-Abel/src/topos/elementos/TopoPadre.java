@@ -9,7 +9,7 @@ import topos.juego.GestionJuego;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
-public class TopoPadre extends ElementoActivo {
+public class TopoPadre extends ElementoActivo implements InterfazControl{
 	// Propiedades implementadas en la Sesion 2
 	/**
 	 * Construcor que construye un objeto topo el cual inicializa en la posicion recibida por parametro x e y, 
@@ -62,7 +62,8 @@ public class TopoPadre extends ElementoActivo {
 	@Override
 	public void actualizarPartida(GestionJuego partida) {
 		// TODO Apéndice de método generado automáticamente
-		partida.sumaPuntos(this.puntos);
+		
+		partida.calculaPuntosPendientes(this.puntos);
 	}
 	/**
 	 * Método que devuelve la ruta en la que esta la imagen del topo.
@@ -86,6 +87,13 @@ public class TopoPadre extends ElementoActivo {
 		Direccion direccion = Direccion.direccionAleatoria();
 		
 		return direccion;
+	}
+
+
+	@Override
+	public int getPuntosElementos() {
+		// TODO Apéndice de método generado automáticamente
+		return this.puntos;
 	}
 
 

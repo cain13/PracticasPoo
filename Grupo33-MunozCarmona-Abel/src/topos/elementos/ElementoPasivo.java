@@ -11,8 +11,5 @@ public abstract class ElementoPasivo extends Elemento {
 		this.cantidad = cantidad;
 	
 	}
-	
-	
-	
 
 }

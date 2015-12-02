@@ -4,7 +4,7 @@ import topos.estructura.Escenario;
 import topos.estructura.Posicion;
 import topos.juego.GestionJuego;
 
-public abstract class Elemento {
+public abstract class Elemento{
 
 	protected Posicion posicion;
 	protected Escenario escenario;

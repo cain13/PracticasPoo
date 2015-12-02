@@ -14,13 +14,13 @@ public class GestionJuego {
 	// Implementado en la Sesion 4
 	private long segundos;
 	private long inicio;
-	private int puntos;
+	private int puntosPendientes;
+	private final int puntosTotales;
+
 	private int disparosRestantes;
 	
 	// Implementacion "EXTRA"
 	private Escenario escenario;
-	private int toposJugando;
-	
 	private String textoPartida;
 	
 	// Implementacion Sesion 4 
@@ -32,14 +32,16 @@ public class GestionJuego {
 	 * @param segundos
 	 * @param disparosRestantes
 	 */
-	public GestionJuego(long segundos, int disparosRestantes){
+	public GestionJuego(long segundos, int disparosRestantes,int puntosEnJuego){
 		this.segundos = segundos;
 		this.disparosRestantes = disparosRestantes;
-		this.puntos = 0; 
+	
+		this.puntosPendientes = puntosEnJuego; 
+		this.puntosTotales = puntosEnJuego; 
 		this.inicio = 0;
 		this.escenario = null;
-		this.toposJugando = 0;
 		textoPartida = "";
+		
 	}
 	
 	/**
@@ -81,26 +83,12 @@ public class GestionJuego {
 		}
 	}
 	
-	/**
-	 * Método de consulta que devuelve los puntos obtenidos por el jugador.
-	 * @return entero con la cantidad de puntos obtenidos.
-	 */
-	public int getPuntos(){
-		return this.puntos;
-	}
-	
-	/**
-	 * Método que incrementa la puntuación.
-	 * @param puntos entero con el valor a incrementar.
-	 */
-	public void sumaPuntos(int puntos){
-		this.puntos += puntos;
-	}
+
 	public void sumaDisparos(int disparos){
 		this.disparosRestantes += disparos;
 	}
-	public void sumaTiempo(int disparos){
-		this.disparosRestantes += disparos;
+	public void sumaTiempo(int tiempo){
+		this.segundos += tiempo;
 	}
 	
 	/**
@@ -116,7 +104,7 @@ public class GestionJuego {
 	 */
 	public boolean enJuego(){
 		
-		if(!this.esFinalizada() && this.disparosRestantes > 0 && getCantidadToposVivos() > 0)
+		if(!this.esFinalizada() && this.disparosRestantes > 0 && getPuntosPendientes() > 0)
 			return true;
 		else
 			return false;
@@ -143,7 +131,7 @@ public class GestionJuego {
 	 */
 	public void setEscenario(Escenario escenario){
 		this.escenario = escenario;
-		this.toposJugando = escenario.getCantidadTopos();
+		escenario.getCantidadTopos();
 		
 	}
 	
@@ -155,22 +143,7 @@ public class GestionJuego {
 		return this.escenario;
 	}
 	
-	/**
-	 * Método que al cazar un topo decrementa la cantidad de topos que hay en juego.
-	 */
-	public void restaTopos(){
-		if(this.toposJugando > 0){
-			this.toposJugando--;
-		}
-	}
 	
-	/**
-	 * Método que devuelve la cantidad de topos que quedan en juego.
-	 * @return entero con la cantidad de topos que hay en juego.
-	 */
-	public int getCantidadToposVivos(){
-		return toposJugando;
-	}
 	
 	/**
 	 * Método actualiza el mensaje a mostrar en la barra de la ventana de juego.
@@ -185,8 +158,8 @@ public class GestionJuego {
 	 * @return String que devuelve el texto a mostrar en la barra.
 	 */
 	public String getTextoEstadoPartido(){
-		if(getCantidadToposVivos()<=0){
-			setTextoEstadoPartido("HAS GANADO !! HAS CAZADO LOS "+escenario.getCantidadTopos()+ " Topos");
+		if(getPuntosPendientes()<=0){
+			setTextoEstadoPartido("HAS GANADO !! HAS CONESGUIDO TODOS LOS PUNTOS ");
 		}else if(this.disparosRestantes <= 0){
 			setTextoEstadoPartido("GAME OVER !! NO QUEDAN DISPAROS");
 		}else if(esFinalizada()){
@@ -195,4 +168,17 @@ public class GestionJuego {
 		return textoPartida;
 	}
 	// Fin Implementacion "EXTRA"
+
+	public int getPuntosPendientes() {
+		return puntosPendientes;
+	}
+
+	public void calculaPuntosPendientes(int puntosPendientes) {
+		this.puntosPendientes -= puntosPendientes;
+	}
+
+	public int getPuntosTotales() {
+		return puntosTotales;
+	}
+
 }

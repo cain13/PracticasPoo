@@ -7,7 +7,7 @@ import topos.juego.GestionJuego;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
-public class Monedas extends ElementoPasivo{
+public class Monedas extends ElementoPasivo implements InterfazControl{
 
 	/**
 	 * Construcor que construye un objeto topo el cual inicializa en la posicion recibida por parametro x e y, 
@@ -28,7 +28,8 @@ public class Monedas extends ElementoPasivo{
 	@Override
 	public void actualizarPartida(GestionJuego partida) {
 		// TODO Apéndice de método generado automáticamente
-		partida.sumaPuntos(this.cantidad);
+
+		partida.calculaPuntosPendientes(this.cantidad);
 	}
 	/**
 	 * Método que devuelve la ruta en la que esta la imagen del topo.
@@ -38,6 +39,14 @@ public class Monedas extends ElementoPasivo{
 	public String getImagenElemento() {
 		// TODO Apéndice de método generado automáticamente
 		return "imagenes/monedas.png";
+	}
+
+
+	@Override
+	public int getPuntosElementos() {
+		// TODO Apéndice de método generado automáticamente
+		return this.cantidad;
+		
 	}
 
 

@@ -28,7 +28,7 @@ public class Tiempo extends ElementoPasivo{
 	@Override
 	public void actualizarPartida(GestionJuego partida) {
 		// TODO Apéndice de método generado automáticamente
-		partida.sumaDisparos(this.cantidad);
+		partida.sumaTiempo(this.cantidad);
 	}
 	/**
 	 * Método que devuelve la ruta en la que esta la imagen del topo.
