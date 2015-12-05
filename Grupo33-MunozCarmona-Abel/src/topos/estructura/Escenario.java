@@ -100,8 +100,11 @@ public class Escenario {
 	 */
 	public PanelBasico getPanel(Posicion posicion){
 		// Compruebo que la posicion este dentro del escenario
-		if(estaDentro(posicion))
-			return paneles[posicion.getX()][posicion.getY()];
+		
+		if(estaDentro(posicion)){
+			Posicion copia = posicion.clone();
+			return paneles[copia.getX()][copia.getY()];
+		}
 		return null;
 	}
 	
@@ -111,8 +114,10 @@ public class Escenario {
 	 */
 	public void setPanel(PanelBasico panel){
 		// Compruebo que el panel este dentro del escenario antes de añadirlo
-		if(estaDentro(panel.getPosicionPanel())) 
-			paneles[panel.getPosicionPanel().getX()][panel.getPosicionPanel().getY()] = panel;
+		if(estaDentro(panel.getPosicionPanel())) {
+			PanelBasico copiaPanel = panel.clone();
+			paneles[panel.getPosicionPanel().getX()][panel.getPosicionPanel().getY()] = copiaPanel;
+		}
 	}
 	
 	/**
@@ -212,8 +217,7 @@ public class Escenario {
 	 */
 	public Elemento getElemento(Posicion posicion){
 		for(Elemento elemento : elementos){
-			if(elemento.getPosicion().getX() == posicion.getX() && 
-					elemento.getPosicion().getY() == posicion.getY())
+			if(elemento.getPosicion().equals(posicion))
 				return elemento;
 		}
 		return null;
@@ -363,8 +367,9 @@ public class Escenario {
 		}
 		pantalla.addImagen(this.objetivo.getX(), this.objetivo.getY(), "imagenes/objetivo.png");
 
-		pantalla.setBarraEstado("Tiempo: " + partida.getSegundosRestates() + 
-				" Disparos: " + partida.getDisparosRestantes() + " Puntos: " + partida.getPuntosPendientes());
+		pantalla.setBarraEstado("Time: " + partida.getSegundosRestates() + 
+				" Bullets: " + partida.getDisparosRestantes() + " Score: " + partida.getPuntosPendientes() +
+				"/"+ partida.getPuntosTotales());
 		pantalla.dibujar();
 	}
 	// Fin implementacion Sesion 5	
@@ -509,9 +514,9 @@ public class Escenario {
 		int puntosTotales = 0;
 		
 		for(Elemento elemento : elementos){
-			if(elemento instanceof InterfazControl){
+			if(elemento instanceof InterfazControl ){
+				if(!(elemento instanceof Rata))
 				puntosTotales += ((InterfazControl) elemento).getPuntosElementos();
-				
 			}
 		}
 		return puntosTotales;

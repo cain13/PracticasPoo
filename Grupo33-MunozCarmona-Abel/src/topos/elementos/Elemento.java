@@ -26,10 +26,41 @@ public abstract class Elemento{
 	 * Método que devuelve el escenario actual al que hace referencia el elemento.
 	 * @return escenario en el que esta el elemento.
 	 */
-	public Escenario getEscenario(){
-		return this.escenario;
+	public abstract Escenario getEscenario();
+	public abstract Posicion getPosicion();
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((escenario == null) ? 0 : escenario.hashCode());
+		result = prime * result
+				+ ((posicion == null) ? 0 : posicion.hashCode());
+		return result;
 	}
-	public Posicion getPosicion(){
-		return new Posicion(posicion);
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Elemento))
+			return false;
+		Elemento otro = (Elemento) obj;
+		if (escenario == null) {
+			if (otro.escenario != null)
+				return false;
+		} else if (!escenario.equals(otro.escenario))
+			return false;
+		if (posicion == null) {
+			if (otro.posicion != null)
+				return false;
+		} else if (!posicion.equals(otro.posicion))
+			return false;
+		return true;
 	}
+
+	
 }

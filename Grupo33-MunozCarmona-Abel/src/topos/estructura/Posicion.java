@@ -4,7 +4,7 @@ package topos.estructura;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  */
 
-public class Posicion {
+public class Posicion implements Cloneable{
 	// Propiedades implementadas en la Sesion 1
 	private int x;
 	private int y;
@@ -162,5 +162,24 @@ public class Posicion {
 		return getClass().getName() + "[x = " + x +	", y = " + y + "]";
 	}
 
+	private Posicion copiaSuperficial(){
+		Posicion copia = null;
+		
+		try {
+			
+			copia = (Posicion)super.clone();
+		
+		} catch (CloneNotSupportedException e) {
+			System.err.println("La clase no es cloneable");
+		}  //hace una copia superficial del objeto receptor
+		
+		return copia;
+	}
+	
+	@Override
+	public Posicion clone() {
+		Posicion copia = copiaSuperficial();
+		return copia;
+	}
 	
 }

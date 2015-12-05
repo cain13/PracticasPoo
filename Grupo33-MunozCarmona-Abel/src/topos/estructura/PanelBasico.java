@@ -7,7 +7,9 @@ package topos.estructura;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
-public class PanelBasico {
+public class PanelBasico implements Cloneable{
+	
+
 	// Propiedades implementadas en la Sesion 2
 	private Posicion posicion;
 	private boolean visible;
@@ -113,4 +115,64 @@ public class PanelBasico {
 		this.visible = true;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result	+ ((posicion == null) ? 0 : posicion.hashCode());
+		result = prime * result + (visible ? 1231 : 1237);
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof PanelBasico))
+			return false;
+		PanelBasico other = (PanelBasico) obj;
+		if (posicion == null) {
+			if (other.posicion != null)
+				return false;
+		} else if (!posicion.equals(other.posicion))
+			return false;
+		if (visible != other.visible)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + " [posicion=" + posicion + ", visible=" + visible
+				+ "]";
+	}
+	
+	protected PanelBasico copiaSuperficial(){
+		PanelBasico copia = null;
+		
+		try {
+			copia = (PanelBasico)super.clone();
+		} catch (CloneNotSupportedException e) {
+			//El método clone de la clase Object lanza la excepción 
+			//CloneNotSupportedException si la clase del objeto receptor
+			//no implementa la interfaz Cloneable
+			//Como la clase Burbuja implementa la interfaz esta excepción
+			//no va a ocurrir nunca.
+			System.err.println("La clase no es Cloneable");
+		}
+		
+		return copia;
+	}
+	
+	public PanelBasico clone() {
+		PanelBasico copia = copiaSuperficial();
+		
+		//Adaptaciones solucionar aliasing
+		
+		copia.posicion = this.posicion.clone();
+		
+		return copia;
+	}
 }

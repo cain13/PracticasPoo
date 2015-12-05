@@ -159,7 +159,7 @@ public class GestionJuego {
 	 */
 	public String getTextoEstadoPartido(){
 		if(getPuntosPendientes()<=0){
-			setTextoEstadoPartido("HAS GANADO !! HAS CONESGUIDO TODOS LOS PUNTOS ");
+			setTextoEstadoPartido("HAS CONESGUIDO TODOS LOS PUNTOS ");
 		}else if(this.disparosRestantes <= 0){
 			setTextoEstadoPartido("GAME OVER !! NO QUEDAN DISPAROS");
 		}else if(esFinalizada()){

@@ -1,6 +1,7 @@
 package topos.elementos;
 
 import topos.estructura.Direccion;
+import topos.estructura.Escenario;
 import topos.estructura.Posicion;
 import topos.juego.GestionJuego;
 /**
@@ -143,7 +144,17 @@ public class Rata extends ElementoActivo implements InterfazControl{
 		// TODO Apéndice de método generado automáticamente
 		return this.puntos;
 	}
-
-
 	
+	@Override
+	public Escenario getEscenario() {
+		// TODO Apéndice de método generado automáticamente
+		return super.escenario;
+	}
+
+
+	@Override
+	public Posicion getPosicion() {
+		// TODO Apéndice de método generado automáticamente
+		return super.posicion;
+	}
 }

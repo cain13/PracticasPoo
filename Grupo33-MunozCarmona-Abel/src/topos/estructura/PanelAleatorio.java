@@ -55,7 +55,14 @@ public class PanelAleatorio extends PanelBasico{
 	public String getImagenPanel(){
 		return "imagenes/panel-aleatorio.png";
 	}
-	
 	// Fin implementacion Sesion 6
 	
+	//No redefine equals / hashCode xq no añade nuevas propiedades.
+	
+	//Redefinimos el método clone para aplicar la regla covariante
+	//Todos los atributos son de tipo primitivo y se copian al hacer
+	//la copia superficial sobre el objeto receptor de la llamada.
+	public PanelAleatorio clone() {
+		return (PanelAleatorio)super.clone();
+	}
 }

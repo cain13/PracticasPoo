@@ -7,6 +7,7 @@ package topos.estructura;
  *
  */
 public class PanelFlash extends PanelBasico{
+	
 	// Atributo de implementacion
 	private int numeroActualizaciones = 0;
 
@@ -56,7 +57,39 @@ public class PanelFlash extends PanelBasico{
 	public String getImagenPanel(){
 		return "imagenes/panel-flash.gif";
 	}
-	
 	// Fin implementacion Sesion 6
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + numeroActualizaciones;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof PanelFlash))
+			return false;
+		PanelFlash otro = (PanelFlash) obj;
+		if (numeroActualizaciones != otro.numeroActualizaciones)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "[numeroActualizaciones=" + numeroActualizaciones	+ "]";
+	}
+
+	//Redefinimos el método clone para aplicar la regla covariante
+	//Todos los atributos son de tipo primitivo y se copian al hacer
+	//la copia superficial sobre el objeto receptor de la llamada.
+	public PanelFlash clone() {
+		return (PanelFlash)super.clone();
+	}
 }

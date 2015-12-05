@@ -70,6 +70,48 @@ public class PanelResistente extends PanelBasico{
 	public String getImagenPanel(){
 		return "imagenes/panel-resistente.gif";
 	}
-	
 	// Fin implementacion Sesion 6
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + dureza;
+		result = prime * result
+				+ ((instantesGolpes == null) ? 0 : instantesGolpes.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof PanelResistente))
+			return false;
+		PanelResistente otro = (PanelResistente) obj;
+		if (dureza != otro.dureza)
+			return false;
+		if (instantesGolpes == null) {
+			if (otro.instantesGolpes != null)
+				return false;
+		} else if (!instantesGolpes.equals(otro.instantesGolpes))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "[dureza=" + dureza + ", instantesGolpes=" + instantesGolpes + "]";
+	}
+	
+	//Redefinimos el método clone para aplicar la regla covariante
+	//Todos los atributos son de tipo primitivo y se copian al hacer
+	//la copia superficial sobre el objeto receptor de la llamada.
+	public PanelResistente clone() {
+		return (PanelResistente)super.clone();
+	}
+
 }

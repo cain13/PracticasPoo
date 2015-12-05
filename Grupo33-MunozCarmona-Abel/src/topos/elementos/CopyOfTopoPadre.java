@@ -10,8 +10,8 @@ import topos.juego.GestionJuego;
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
-public class TopoTorpe extends TopoPadre {
-
+public class CopyOfTopoPadre extends ElementoActivo implements InterfazControl{
+	// Propiedades implementadas en la Sesion 2
 	/**
 	 * Construcor que construye un objeto topo el cual inicializa en la posicion recibida por parametro x e y, 
 	 * con el escenario con valor nulo para despues pasarle la referencia del escenario en el que esta el topo,
@@ -19,7 +19,7 @@ public class TopoTorpe extends TopoPadre {
 	 * @param x valor entero para inicializar el topo en el valor de la coordenada x.
 	 * @param y valor entero para inicializar el topo en el valor de la coordenada y.
 	 */
-	public TopoTorpe(int x, int y,int puntos){
+	public CopyOfTopoPadre(int x, int y,int puntos){
 		super(x, y, puntos);
 	}
 
@@ -63,6 +63,7 @@ public class TopoTorpe extends TopoPadre {
 	@Override
 	public void actualizarPartida(GestionJuego partida) {
 		// TODO Apéndice de método generado automáticamente
+		
 		partida.calculaPuntosPendientes(this.puntos);
 	}
 	/**
@@ -78,11 +79,7 @@ public class TopoTorpe extends TopoPadre {
 
 	@Override
 	public boolean puedeMoverse() {
-		// TODO Apéndice de método generado automáticamente
-		if(!this.getEscenario().esVisible(this.getPosicion())){
-			return true;
-		}
-		return false;
+		return true;
 	}
 
 
@@ -93,17 +90,27 @@ public class TopoTorpe extends TopoPadre {
 		return direccion;
 	}
 
+
+	@Override
+	public int getPuntosElementos() {
+		// TODO Apéndice de método generado automáticamente
+		return this.puntos;
+	}
+
+
 	@Override
 	public Escenario getEscenario() {
 		// TODO Apéndice de método generado automáticamente
-		return super.escenario;
+		return null;
 	}
 
 
 	@Override
 	public Posicion getPosicion() {
 		// TODO Apéndice de método generado automáticamente
-		return super.posicion;
+		return null;
 	}
 
+
+	
 }

@@ -1,5 +1,7 @@
 package topos.elementos;
 
+import topos.estructura.Escenario;
+import topos.estructura.Posicion;
 import topos.juego.GestionJuego;
 /**
  * Los topos son los personajes del juego que se ocultan detrás de los paneles, 
@@ -39,8 +41,17 @@ public class Municion extends ElementoPasivo{
 		// TODO Apéndice de método generado automáticamente
 		return "imagenes/municion.png";
 	}
+	
+	@Override
+	public Escenario getEscenario() {
+		// TODO Apéndice de método generado automáticamente
+		return super.escenario;
+	}
 
 
-	
-	
+	@Override
+	public Posicion getPosicion() {
+		// TODO Apéndice de método generado automáticamente
+		return super.posicion;
+	}
 }
