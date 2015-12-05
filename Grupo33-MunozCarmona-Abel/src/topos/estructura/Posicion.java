@@ -134,5 +134,33 @@ public class Posicion {
 	}
 	
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)  return true;  
+		
+		if (obj == null)  return false;
+		
+		if (this.getClass() != obj.getClass())  return false;
+		
+		Posicion otro = (Posicion)obj;
+		
+		return (this.x == otro.x && this.y == otro.y);
+	}
+	
+	@Override
+	public int hashCode() {
+		int primo = 31;
+		int result = 1;
+		
+		result = result * primo + x;
+		result = result * primo + y;
+		
+		return result;
+	}
+	
+	public String toString(){
+		return getClass().getName() + "[x = " + x +	", y = " + y + "]";
+	}
+
 	
 }
