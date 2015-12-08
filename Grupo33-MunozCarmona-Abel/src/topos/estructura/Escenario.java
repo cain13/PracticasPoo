@@ -1,7 +1,11 @@
 package topos.estructura;
 
 import java.awt.Color;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Random;
 
 import topos.elementos.Elemento;
@@ -36,7 +40,7 @@ public class Escenario {
 	private Posicion objetivo;
 
 	// Propiedades implementadas en la Sesion 4
-	private LinkedList<Elemento> elementos;
+	private Map<Posicion,Elemento> elementos;
 	
 	// Propiedades implementadas en la Sesion 5
 	private static final int TIEMPO_PAUSA = 200;
@@ -70,7 +74,7 @@ public class Escenario {
 		this.alto = alto;
 		paneles = new PanelBasico[ancho][alto];
 		this.objetivo = new Posicion();
-		this.elementos = new LinkedList<Elemento>();
+		this.elementos = new HashMap<Posicion,Elemento>();
 		this.partida = null;
 		this.pantalla = null;
 		this.cantidaTopos = 0;
@@ -198,7 +202,7 @@ public class Escenario {
 	 * @param topos los topos que se quieren insertar en el ecenario.
 	 * @return devuelve la lista de topos rechazados.
 	 */
-	public LinkedList<Elemento> addElementos(Elemento... elementos){
+	public Collection<Elemento> addElementos(Elemento... elementos){
 		LinkedList<Elemento> elementosRechazados = new LinkedList<Elemento>();
 		
 		for(Elemento elemento : elementos){
@@ -206,7 +210,7 @@ public class Escenario {
 				elemento.setEscenario(this);
 				// Compruebo que el topo este dentro del escenario antes de insertarlo
 				if(estaDentro(elemento.getPosicion()))
-					this.elementos.add(elemento);
+					this.elementos.put(elemento.getPosicion(), elemento);
 			}else{
 				elementosRechazados.add(elemento);
 			}	
@@ -220,9 +224,16 @@ public class Escenario {
 	 * @return devuelve el objeto topo que se encuentra en esa posción o nulo si no hay topo.
 	 */
 	public Elemento getElemento(Posicion posicion){
+	/*
 		for(Elemento elemento : elementos){
 			if(elemento.getPosicion().equals(posicion))
 				return elemento;
+		}
+		   */
+		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
+		    Posicion clavePosicion = elemento.getKey();
+		    if(clavePosicion.equals(posicion))
+		    	return elemento.getValue();
 		}
 		return null;
 	}
@@ -243,8 +254,9 @@ public class Escenario {
 	 * Método que devuelve una copia de la lista de topos que en el escenario.
 	 * @return devuelve una copia de la lista de topos que hay en el escenario
 	 */
-	public LinkedList<Elemento> getElementos(){
-		return new LinkedList<Elemento>(elementos);
+	public Collection<Elemento> getElementos(){
+		Collection<Elemento> col = elementos.values();
+		return col;
 				
 	}
 	// Fin implementacion Sesion 4
@@ -317,11 +329,13 @@ public class Escenario {
 				paneles[x][y].actualizar();
 			}
 		}
-		for(Elemento elemento : elementos){
-			if(elemento instanceof ElementoActivo)
-				((ElementoActivo) elemento).actuar();
-			
+
+		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
+			if(elemento.getValue() instanceof ElementoActivo)
+				((ElementoActivo) elemento.getValue()).actuar();
+		   
 		}
+
 	}
 	
 	/**
@@ -362,13 +376,14 @@ public class Escenario {
 				}
 			}
 		}
-		
-		for(Elemento elemento : elementos){
-			if(esVisible(elemento.getPosicion())){
-				pantalla.addImagen(elemento.getPosicion().getX(),elemento.getPosicion().getY(),
-						elemento.getImagenElemento());
+		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
+			Elemento elemento1 = elemento.getValue();
+			if(esVisible(elemento.getKey())){
+				pantalla.addImagen(elemento1.getPosicion().getX(), elemento1.getPosicion().getY(),
+						elemento1.getImagenElemento());
 			}
 		}
+
 		pantalla.addImagen(this.objetivo.getX(), this.objetivo.getY(), "imagenes/objetivo.png");
 
 		pantalla.setBarraEstado("Time: " + partida.getSegundosRestates() + 
@@ -514,15 +529,23 @@ public class Escenario {
 	 * para poder contabilizar la cantidad de topos con el que se inicializa un escenario.
 	 * @param cantidadTopos valor entero con la cantidad de topos con el que se inicializa la partida. 
 	 */
-	public int getElementosPuntables(LinkedList<Elemento> elementos){
+	public int getElementosPuntables(Collection<Elemento> collection){
+		System.out.println("AQui");
 		int puntosTotales = 0;
-		
-		for(Elemento elemento : elementos){
+		for (Map.Entry<Posicion, Elemento > elemento : elementos.entrySet()) {
+			Elemento elemento1 = elemento.getValue();
+			if(elemento1 instanceof InterfazControl ){
+				if(!(elemento1 instanceof Rata))
+				puntosTotales += ((InterfazControl) elemento1).getPuntosElementos();
+			}
+		}
+		/*
+		for(Elemento elemento : collection){
 			if(elemento instanceof InterfazControl ){
 				if(!(elemento instanceof Rata))
 				puntosTotales += ((InterfazControl) elemento).getPuntosElementos();
 			}
-		}
+		}*/
 		return puntosTotales;
 	}
 	

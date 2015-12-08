@@ -35,4 +35,36 @@ public abstract class ElementoActivo extends Elemento implements InterfazControl
 	public abstract boolean puedeMoverse();
 	public abstract Direccion calculaDireccion();
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + puntos;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ElementoActivo otro = (ElementoActivo) obj;
+		if (puntos != otro.puntos)
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public String toString() {
+		return  super.toString() + " [puntos=" + puntos + "]";
+	}
+	
+	
+
 }

@@ -62,5 +62,8 @@ public abstract class Elemento{
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return getClass().getName() + " [posicion=" + posicion + "]";
+	}
 }
