@@ -155,11 +155,7 @@ public class PanelBasico implements Cloneable{
 		try {
 			copia = (PanelBasico)super.clone();
 		} catch (CloneNotSupportedException e) {
-			//El método clone de la clase Object lanza la excepción 
-			//CloneNotSupportedException si la clase del objeto receptor
-			//no implementa la interfaz Cloneable
-			//Como la clase Burbuja implementa la interfaz esta excepción
-			//no va a ocurrir nunca.
+	
 			System.err.println("La clase no es Cloneable");
 		}
 		

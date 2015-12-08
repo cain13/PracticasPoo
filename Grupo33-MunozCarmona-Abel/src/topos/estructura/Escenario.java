@@ -61,7 +61,11 @@ public class Escenario {
 	 * @param alto valor entero para establecer el alto del escenario.
 	 */
 	public Escenario(int ancho, int alto){
-	
+		if (ancho < 1)
+			throw new IllegalArgumentException("ancho debe ser un valor mayor que 0");
+		 if (alto < 1)
+			throw new IllegalArgumentException("alto debe ser un valor mayor que 0"); 
+		 
 		this.ancho = ancho;
 		this.alto = alto;
 		paneles = new PanelBasico[ancho][alto];
