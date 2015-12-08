@@ -3,7 +3,6 @@ package topos.estructura;
 import java.awt.Color;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
@@ -51,7 +50,7 @@ public class Escenario {
 	
 	// Propiedades implementadas "EXTRA"
 	private int cantidaTopos; 
-	
+	private  LinkedList<Elemento> copiaElementos;
 	/**
 	 * Constructor que construye estableciendo las dimensiones: ancho y alto,
 	 * en el proceso de construcción se inicializa la tabla que almacena los paneles, 
@@ -78,6 +77,7 @@ public class Escenario {
 		this.partida = null;
 		this.pantalla = null;
 		this.cantidaTopos = 0;
+		this.copiaElementos = new LinkedList<Elemento>();
 		for(int y = 0; y < alto; y++){
 			for(int x = 0; x < ancho; x++){
 				paneles[x][y] = new PanelBasico(x,y);
@@ -224,16 +224,11 @@ public class Escenario {
 	 * @return devuelve el objeto topo que se encuentra en esa posción o nulo si no hay topo.
 	 */
 	public Elemento getElemento(Posicion posicion){
-	/*
-		for(Elemento elemento : elementos){
-			if(elemento.getPosicion().equals(posicion))
-				return elemento;
-		}
-		   */
+
 		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
 		    Posicion clavePosicion = elemento.getKey();
 		    if(clavePosicion.equals(posicion))
-		    	return elemento.getValue();
+		    	return elemento.getValue().clone();
 		}
 		return null;
 	}
@@ -255,8 +250,8 @@ public class Escenario {
 	 * @return devuelve una copia de la lista de topos que hay en el escenario
 	 */
 	public Collection<Elemento> getElementos(){
-		Collection<Elemento> col = elementos.values();
-		return col;
+		
+		return this.elementos.values();
 				
 	}
 	// Fin implementacion Sesion 4
@@ -311,14 +306,32 @@ public class Escenario {
 					break;
 				}
 			}
+			copiaElementos = registraElemetos();
 			this.actualiza();
+			modificaElementos(copiaElementos);
 			this.refrescarPantalla();
 			Alarma.dormir(TIEMPO_PAUSA);
 		}
 		this.pantalla.setBarraEstado(partida.getTextoEstadoPartido());
 		
 	}
+	// OJO ESTA PARTE NO VA BIEN
+	private void modificaElementos(LinkedList<Elemento> lista){
+		LinkedList<Elemento> despues = registraElemetos();
+		for(Elemento elemento : lista){
+			elementos.remove(elemento.getPosicion());
+		}
+		for(Elemento elemento : despues){
+			elementos.put(elemento.getPosicion(), elemento);
+		}
+	}
 	
+	private LinkedList<Elemento> registraElemetos() {
+		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
+		   copiaElementos.add(elemento.getValue());
+		}
+		return this.copiaElementos;
+	}
 	/**
 	 * Método encargado de actualizar tanto los paneles que forman el escenario, 
 	 * como el estado de los topos en la partida.
@@ -329,15 +342,14 @@ public class Escenario {
 				paneles[x][y].actualizar();
 			}
 		}
-
+		
 		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
 			if(elemento.getValue() instanceof ElementoActivo)
 				((ElementoActivo) elemento.getValue()).actuar();
 		   
 		}
-
 	}
-	
+
 	/**
 	 * Método para disparar sobre los objetos del juego, solo se puede disparar sobre los paneles visibles o 
 	 * sobre los topos que hay en el escenario.
@@ -350,13 +362,16 @@ public class Escenario {
 				this.getPanel(new Posicion(this.objetivo)).golpear();
 			}else{
 				if(this.hayElemento(new Posicion(this.objetivo))){
+					System.out.println("AQUI SI");
 					// Variable local para guardar la referencia al topo.
 					Elemento elementoAuxiliar = this.getElemento(this.objetivo);
 					this.partida.restaDisparo(); // Resto un disparo
 				
 					elementoAuxiliar.actualizarPartida(this.partida);
 					elementoAuxiliar.setEscenario(null);
-					this.elementos.remove(elementoAuxiliar);
+					if(elementos.containsKey(elementoAuxiliar.getPosicion()))
+						elementos.remove(elementoAuxiliar.getPosicion());
+					
 				}
 			}
 		}

@@ -4,7 +4,7 @@ import topos.estructura.Escenario;
 import topos.estructura.Posicion;
 import topos.juego.GestionJuego;
 
-public abstract class Elemento{
+public abstract class Elemento implements Cloneable{
 
 	protected Posicion posicion;
 	protected Escenario escenario;
@@ -65,5 +65,28 @@ public abstract class Elemento{
 	@Override
 	public String toString() {
 		return getClass().getName() + " [posicion=" + posicion + "]";
+	}
+	
+	protected Elemento copiaSuperficial(){
+		Elemento copia = null;
+		
+		try {
+			copia = (Elemento)super.clone();
+		} catch (CloneNotSupportedException e) {
+		
+			System.err.println("La clase no es Cloneable");
+		}
+		
+		return copia;
+	}
+	
+	public Elemento clone() {
+		Elemento copia = copiaSuperficial();
+		
+		//Adaptaciones solucionar aliasing
+		
+		copia.posicion = this.posicion.clone();
+		
+		return copia;
 	}
 }

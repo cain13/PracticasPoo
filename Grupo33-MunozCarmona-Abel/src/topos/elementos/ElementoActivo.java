@@ -65,6 +65,5 @@ public abstract class ElementoActivo extends Elemento implements InterfazControl
 		return  super.toString() + " [puntos=" + puntos + "]";
 	}
 	
-	
 
 }
