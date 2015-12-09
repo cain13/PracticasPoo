@@ -1,11 +1,16 @@
 package topos.estructura;
 
 import java.awt.Color;
+import java.awt.List;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import topos.elementos.Elemento;
 import topos.elementos.ElementoActivo;
@@ -50,7 +55,7 @@ public class Escenario {
 	
 	// Propiedades implementadas "EXTRA"
 	private int cantidaTopos; 
-	private  LinkedList<Elemento> copiaElementos;
+	private Collection<Elemento> copiaElementos;
 	/**
 	 * Constructor que construye estableciendo las dimensiones: ancho y alto,
 	 * en el proceso de construcción se inicializa la tabla que almacena los paneles, 
@@ -308,7 +313,7 @@ public class Escenario {
 			}
 			copiaElementos = registraElemetos();
 			this.actualiza();
-			modificaElementos(copiaElementos);
+		
 			this.refrescarPantalla();
 			Alarma.dormir(TIEMPO_PAUSA);
 		}
@@ -316,21 +321,15 @@ public class Escenario {
 		
 	}
 	// OJO ESTA PARTE NO VA BIEN
-	private void modificaElementos(LinkedList<Elemento> lista){
-		LinkedList<Elemento> despues = registraElemetos();
-		for(Elemento elemento : lista){
-			elementos.remove(elemento.getPosicion());
-		}
-		for(Elemento elemento : despues){
-			elementos.put(elemento.getPosicion(), elemento);
-		}
+	private void modificaElementos(Collection<Elemento> lista){
+		
 	}
 	
-	private LinkedList<Elemento> registraElemetos() {
-		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
-		   copiaElementos.add(elemento.getValue());
-		}
+	private Collection<Elemento> registraElemetos() {
+		
+		this.copiaElementos = elementos.values();
 		return this.copiaElementos;
+		
 	}
 	/**
 	 * Método encargado de actualizar tanto los paneles que forman el escenario, 

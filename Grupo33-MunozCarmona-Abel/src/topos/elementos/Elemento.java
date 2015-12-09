@@ -1,10 +1,12 @@
 package topos.elementos;
 
+import java.util.Comparator;
+
 import topos.estructura.Escenario;
 import topos.estructura.Posicion;
 import topos.juego.GestionJuego;
 
-public abstract class Elemento implements Cloneable{
+public abstract class Elemento implements Cloneable, Comparator{
 
 	protected Posicion posicion;
 	protected Escenario escenario;
@@ -88,5 +90,10 @@ public abstract class Elemento implements Cloneable{
 		copia.posicion = this.posicion.clone();
 		
 		return copia;
+	}
+
+	public int compare(Object o1, Object o2) {
+		// TODO Apéndice de método generado automáticamente
+		return 0;
 	}
 }

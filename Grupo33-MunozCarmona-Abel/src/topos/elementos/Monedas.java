@@ -63,5 +63,7 @@ public class Monedas extends ElementoPasivo implements InterfazControl{
 		// TODO Apéndice de método generado automáticamente
 		return super.posicion;
 	}
+
+
 	
 }
