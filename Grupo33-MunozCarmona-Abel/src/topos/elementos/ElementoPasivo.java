@@ -1,5 +1,7 @@
 package topos.elementos;
 
+import topos.juego.GestionJuego;
+
 public abstract class ElementoPasivo extends Elemento {
 
 	protected final int cantidad;
@@ -10,6 +12,13 @@ public abstract class ElementoPasivo extends Elemento {
 		super.escenario = null;
 		this.cantidad = cantidad;
 	
+	}
+	
+	@Override
+	public void actualizarPartida(GestionJuego partida) {
+		// TODO Apéndice de método generado automáticamente
+
+		partida.calculaPuntosPendientes(this.cantidad);
 	}
 	
 	@Override
@@ -38,4 +47,5 @@ public abstract class ElementoPasivo extends Elemento {
 	public String toString() {
 		return super.toString() + " [cantidad=" + cantidad + "]";
 	}
+
 }

@@ -1,17 +1,11 @@
 package topos.estructura;
 
 import java.awt.Color;
-import java.awt.List;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import topos.elementos.Elemento;
 import topos.elementos.ElementoActivo;
 import topos.elementos.InterfazControl;
@@ -55,7 +49,6 @@ public class Escenario {
 	
 	// Propiedades implementadas "EXTRA"
 	private int cantidaTopos; 
-	private Collection<Elemento> copiaElementos;
 	/**
 	 * Constructor que construye estableciendo las dimensiones: ancho y alto,
 	 * en el proceso de construcción se inicializa la tabla que almacena los paneles, 
@@ -82,7 +75,6 @@ public class Escenario {
 		this.partida = null;
 		this.pantalla = null;
 		this.cantidaTopos = 0;
-		this.copiaElementos = new LinkedList<Elemento>();
 		for(int y = 0; y < alto; y++){
 			for(int x = 0; x < ancho; x++){
 				paneles[x][y] = new PanelBasico(x,y);
@@ -229,13 +221,8 @@ public class Escenario {
 	 * @return devuelve el objeto topo que se encuentra en esa posción o nulo si no hay topo.
 	 */
 	public Elemento getElemento(Posicion posicion){
+		return elementos.get(posicion);
 
-		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
-		    Posicion clavePosicion = elemento.getKey();
-		    if(clavePosicion.equals(posicion))
-		    	return elemento.getValue().clone();
-		}
-		return null;
 	}
 	
 	/**
@@ -311,7 +298,7 @@ public class Escenario {
 					break;
 				}
 			}
-			copiaElementos = registraElemetos();
+			
 			this.actualiza();
 		
 			this.refrescarPantalla();
@@ -320,17 +307,7 @@ public class Escenario {
 		this.pantalla.setBarraEstado(partida.getTextoEstadoPartido());
 		
 	}
-	// OJO ESTA PARTE NO VA BIEN
-	private void modificaElementos(Collection<Elemento> lista){
-		
-	}
 	
-	private Collection<Elemento> registraElemetos() {
-		
-		this.copiaElementos = elementos.values();
-		return this.copiaElementos;
-		
-	}
 	/**
 	 * Método encargado de actualizar tanto los paneles que forman el escenario, 
 	 * como el estado de los topos en la partida.
@@ -342,10 +319,22 @@ public class Escenario {
 			}
 		}
 		
-		for (Map.Entry<Posicion, Elemento> elemento : elementos.entrySet()) {
-			if(elemento.getValue() instanceof ElementoActivo)
-				((ElementoActivo) elemento.getValue()).actuar();
-		   
+		LinkedList<Elemento> copia = new LinkedList<Elemento>(getElementos());
+		
+		for(Elemento elemento : copia){
+			if(elemento instanceof ElementoActivo){
+				ElementoActivo activo = (ElementoActivo)elemento;
+				Posicion posOld = activo.getPosicion();
+				activo.actuar();
+				Posicion posNueva = activo.getPosicion();
+				
+				if(!posOld.equals(posNueva)){
+						
+					elementos.remove(posOld);
+					elementos.put(posNueva, elemento);
+					
+				}
+			}
 		}
 	}
 

@@ -1,6 +1,7 @@
 package topos.elementos;
 
 import topos.estructura.Direccion;
+import topos.juego.GestionJuego;
 
 public abstract class ElementoActivo extends Elemento implements InterfazControl{
 	
@@ -16,8 +17,32 @@ public abstract class ElementoActivo extends Elemento implements InterfazControl
 		this.puntos = puntos;
 	}
 	
+	
+	public abstract boolean puedeMoverse();
+	public abstract Direccion calculaDireccion();
+	
+	public void desplazar(Direccion direccion) {
+		
+		this.posicion.desplazar(direccion);
+	}
+	
+	/**
+	 * Método al cazar/golpear un topo actualiza la partida sumando un punto por atrapar un topo.
+	 * @param juego referencia a GestionJuego para sumar un punto 
+	 */
+	@Override
+	public void actualizarPartida(GestionJuego partida) {
+		// TODO Apéndice de método generado automáticamente
+		
+		partida.calculaPuntosPendientes(this.puntos);
+	}
+	
 
-	public abstract void desplazar(Direccion direccion);
+	@Override
+	public int getPuntosElementos() {
+		// TODO Apéndice de método generado automáticamente
+		return this.puntos;
+	}
 	
 	public boolean actuar(){
 		if(this.getEscenario() != null && puedeMoverse()){	
@@ -31,9 +56,6 @@ public abstract class ElementoActivo extends Elemento implements InterfazControl
 		}
 		return false;
 	}
-	
-	public abstract boolean puedeMoverse();
-	public abstract Direccion calculaDireccion();
 
 
 	@Override

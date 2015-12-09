@@ -1,12 +1,10 @@
 package topos.elementos;
 
-import java.util.Comparator;
-
 import topos.estructura.Escenario;
 import topos.estructura.Posicion;
 import topos.juego.GestionJuego;
 
-public abstract class Elemento implements Cloneable, Comparator{
+public abstract class Elemento implements Cloneable{
 
 	protected Posicion posicion;
 	protected Escenario escenario;
@@ -28,8 +26,14 @@ public abstract class Elemento implements Cloneable, Comparator{
 	 * Método que devuelve el escenario actual al que hace referencia el elemento.
 	 * @return escenario en el que esta el elemento.
 	 */
-	public abstract Escenario getEscenario();
-	public abstract Posicion getPosicion();
+	
+
+	public Escenario getEscenario() {
+		// TODO Apéndice de método generado automáticamente
+		return this.escenario;
+	}
+
+	
 
 	@Override
 	public int hashCode() {
@@ -92,8 +96,10 @@ public abstract class Elemento implements Cloneable, Comparator{
 		return copia;
 	}
 
-	public int compare(Object o1, Object o2) {
+
+	public Posicion getPosicion() {
 		// TODO Apéndice de método generado automáticamente
-		return 0;
+		return new Posicion(posicion);
 	}
+
 }

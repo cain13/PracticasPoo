@@ -1,9 +1,7 @@
 package topos.elementos;
 
 import topos.estructura.Direccion;
-import topos.estructura.Escenario;
 import topos.estructura.Posicion;
-import topos.juego.GestionJuego;
 /**
  * Los topos son los personajes del juego que se ocultan detrás de los paneles, 
  * el objetivo deljugador es disparar a los topos para eliminarlos del juego y conseguir puntos. 
@@ -48,25 +46,8 @@ public class TopoCiego extends TopoPadre{
 		}
 		return false;
 	}
-	
-	@Override
-	public void desplazar(Direccion direccion) {
-		
-		this.posicion.desplazar(direccion);
-	}
-	
-	
-	
-	/**
-	 * Método al cazar/golpear un topo actualiza la partida sumando un punto por atrapar un topo.
-	 * @param juego referencia a GestionJuego para sumar un punto 
-	 */
-	@Override
-	public void actualizarPartida(GestionJuego partida) {
-		// TODO Apéndice de método generado automáticamente
-		
-		partida.calculaPuntosPendientes(this.puntos);
-	}
+
+
 	/**
 	 * Método que devuelve la ruta en la que esta la imagen del topo.
 	 * @return String con la ruta de la imagen del topo.
@@ -75,12 +56,6 @@ public class TopoCiego extends TopoPadre{
 	public String getImagenElemento() {
 		// TODO Apéndice de método generado automáticamente
 		return "imagenes/topo-ciego.png";
-	}
-
-
-	@Override
-	public boolean puedeMoverse() {
-		return true;
 	}
 
 
@@ -94,18 +69,8 @@ public class TopoCiego extends TopoPadre{
 		return direccion;
 	}
 
-	@Override
-	public Escenario getEscenario() {
-		// TODO Apéndice de método generado automáticamente
-		return super.escenario;
-	}
 
 
-	@Override
-	public Posicion getPosicion() {
-		// TODO Apéndice de método generado automáticamente
-		return super.posicion;
-	}
 
 	
 }
