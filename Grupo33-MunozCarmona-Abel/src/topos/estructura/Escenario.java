@@ -212,6 +212,7 @@ public class Escenario {
 				elementosRechazados.add(elemento);
 			}	
 		}
+		
 		return elementosRechazados;
 	}
 	
@@ -350,7 +351,6 @@ public class Escenario {
 				this.getPanel(new Posicion(this.objetivo)).golpear();
 			}else{
 				if(this.hayElemento(new Posicion(this.objetivo))){
-					System.out.println("AQUI SI");
 					// Variable local para guardar la referencia al topo.
 					Elemento elementoAuxiliar = this.getElemento(this.objetivo);
 					this.partida.restaDisparo(); // Resto un disparo
@@ -533,22 +533,15 @@ public class Escenario {
 	 * @param cantidadTopos valor entero con la cantidad de topos con el que se inicializa la partida. 
 	 */
 	public int getElementosPuntables(Collection<Elemento> collection){
-		System.out.println("AQui");
 		int puntosTotales = 0;
 		for (Map.Entry<Posicion, Elemento > elemento : elementos.entrySet()) {
 			Elemento elemento1 = elemento.getValue();
 			if(elemento1 instanceof InterfazControl ){
-				if(!(elemento1 instanceof Rata))
+				
 				puntosTotales += ((InterfazControl) elemento1).getPuntosElementos();
 			}
 		}
-		/*
-		for(Elemento elemento : collection){
-			if(elemento instanceof InterfazControl ){
-				if(!(elemento instanceof Rata))
-				puntosTotales += ((InterfazControl) elemento).getPuntosElementos();
-			}
-		}*/
+	
 		return puntosTotales;
 	}
 	
@@ -559,5 +552,5 @@ public class Escenario {
 	public int getCantidadTopos(){
 		return this.cantidaTopos;
 	}
-	// Fin mplementacion "EXTRA" 
+	
 }

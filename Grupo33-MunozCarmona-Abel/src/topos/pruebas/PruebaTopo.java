@@ -1,6 +1,6 @@
 package topos.pruebas;
 
-import topos.elementos.Elemento;
+import topos.elementos.ElementoActivo;
 import topos.elementos.TopoTorpe;
 import topos.estructura.Direccion;
 import topos.estructura.Posicion;
@@ -11,9 +11,9 @@ public class PruebaTopo {
 		System.out.println("Practica POO topo - Sesion2");
 		
 		// Creo un topo en la posicion (0,0)
-		Elemento elemento = new TopoTorpe(0,0,1);
+		ElementoActivo elemento = new TopoTorpe(0,0,1);
 		
-		/*  / Desplazo el topo a la derecha
+		// Desplazo el topo a la derecha
 		elemento.desplazar(Direccion.DERECHA);
 		
 		// Creo una variable de Posicion posicion1 para guardar la posicion del topo 
@@ -29,7 +29,7 @@ public class PruebaTopo {
 		Posicion posicion2 = new Posicion(elemento.getPosicion());
 		System.out.printf("Posicion posicion2 (%d,%d)\n", posicion2.getX(), posicion2.getY());
 		
-		*/
+		
 		
 	}
 
