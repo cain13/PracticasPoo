@@ -28,6 +28,10 @@ public class PanelBasico implements Cloneable{
 	 * @param visible valor inicial de la visibilidad del panel.
 	 */
 	public PanelBasico(int x, int y, boolean visible){
+		if (x < 0)
+			throw new IllegalArgumentException("el valor de x debe ser mayor o igual que 0");
+		if (y < 0)
+			throw new IllegalArgumentException("el valor de y debe ser mayor o igual que 0");
 		this.posicion = new Posicion(x,y);
 		this.visible = visible;
 		this.tiempoGolpeo = 0;
@@ -81,7 +85,9 @@ public class PanelBasico implements Cloneable{
 	 * @param posicion, valor de la nueva posición.
 	 */
 	public void setPosicionPanel(Posicion posicion){
-		this.posicion = new Posicion(posicion);
+		if(posicion.getX() >= 0 && posicion.getY() >= 0)
+			this.posicion = new Posicion(posicion);
+		
 	}
 	
 	// Fin de la implementacion Sesion 2

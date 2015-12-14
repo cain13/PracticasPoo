@@ -3,9 +3,11 @@ package topos.estructura;
 import java.awt.Color;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
+
 import topos.elementos.Elemento;
 import topos.elementos.ElementoActivo;
 import topos.elementos.InterfazControl;
@@ -64,7 +66,7 @@ public class Escenario {
 	public Escenario(int ancho, int alto){
 		if (ancho < 1)
 			throw new IllegalArgumentException("ancho debe ser un valor mayor que 0");
-		 if (alto < 1)
+		if (alto < 1)
 			throw new IllegalArgumentException("alto debe ser un valor mayor que 0"); 
 		 
 		this.ancho = ancho;
@@ -222,7 +224,10 @@ public class Escenario {
 	 * @return devuelve el objeto topo que se encuentra en esa posción o nulo si no hay topo.
 	 */
 	public Elemento getElemento(Posicion posicion){
-		return elementos.get(posicion);
+		if((posicion.getX() >= 0 && posicion.getX() < ancho) && (posicion.getY() >= 0 && posicion.getY() < alto))
+			return elementos.get(posicion);
+		else
+			return null;
 
 	}
 	
@@ -404,6 +409,11 @@ public class Escenario {
 	 * @param disparos entero con la cantidad de disparos que quieres que tenga la partida.
 	 */
 	public void menuInicio(int segundos, int disparos){
+		if (segundos <= 0)
+			throw new IllegalArgumentException("el valor de segundos debe ser mayor que 0");
+		if (disparos <= 0)
+			throw new IllegalArgumentException("el valor de disparos debe ser mayor que 0"); 
+		
 		pantalla = new Pantalla(1, 1,250,Color.black);
 		pantalla.addImagen(0,0, "imagenes/splash.png");
 		while(!pantalla.hayTecla()){
@@ -532,16 +542,19 @@ public class Escenario {
 	 * para poder contabilizar la cantidad de topos con el que se inicializa un escenario.
 	 * @param cantidadTopos valor entero con la cantidad de topos con el que se inicializa la partida. 
 	 */
-	public int getElementosPuntables(Collection<Elemento> collection){
+	private int getElementosPuntables(Collection<Elemento> collection){
 		int puntosTotales = 0;
-		for (Map.Entry<Posicion, Elemento > elemento : elementos.entrySet()) {
-			Elemento elemento1 = elemento.getValue();
-			if(elemento1 instanceof InterfazControl ){
-				
-				puntosTotales += ((InterfazControl) elemento1).getPuntosElementos();
+		
+		Iterator<Elemento> it = elementos.values().iterator();
+		Elemento elemento = null;
+	
+		while (it.hasNext()) {
+			elemento = it.next(); 
+			if(elemento instanceof InterfazControl ){
+				puntosTotales += ((InterfazControl) elemento).getPuntosElementos();
 			}
 		}
-	
+
 		return puntosTotales;
 	}
 	

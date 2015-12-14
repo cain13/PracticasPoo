@@ -110,6 +110,7 @@ public class PanelResistente extends PanelBasico{
 	//Redefinimos el método clone para aplicar la regla covariante
 	//Todos los atributos son de tipo primitivo y se copian al hacer
 	//la copia superficial sobre el objeto receptor de la llamada.
+	@Override
 	public PanelResistente clone() {
 		return (PanelResistente)super.clone();
 	}

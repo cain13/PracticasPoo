@@ -89,6 +89,7 @@ public class PanelFlash extends PanelBasico{
 	//Redefinimos el método clone para aplicar la regla covariante
 	//Todos los atributos son de tipo primitivo y se copian al hacer
 	//la copia superficial sobre el objeto receptor de la llamada.
+	@Override
 	public PanelFlash clone() {
 		return (PanelFlash)super.clone();
 	}

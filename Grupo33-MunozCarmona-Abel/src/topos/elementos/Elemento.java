@@ -10,6 +10,11 @@ public abstract class Elemento implements Cloneable{
 	protected Escenario escenario;
 	
 	public Elemento (int x, int y){
+		if (x < 0)
+			throw new IllegalArgumentException("el valor de x debe ser mayor o igual que 0");
+		if (y < 0)
+			throw new IllegalArgumentException("el valor de y debe ser mayor o igual que 0"); 
+		
 		this.posicion = new Posicion(x,y);
 		this.escenario = null;
 	}

@@ -28,8 +28,7 @@ public class Partida {
 		escenario.setPanel(new PanelFlash(3, 3));
 		
 		// Añade un PanelResistente
-		escenario.setPanel(new PanelResistente(4, 4, 3));
-		
+		escenario.setPanel(new PanelResistente(4, 4, 3));		
 		// Añade 3 Topos al escenario
 		Elemento elemento1 = new TopoTorpe(1,2,1);
 		Elemento elemento2 = new TopoCiego(2,2,2);

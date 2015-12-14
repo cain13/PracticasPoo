@@ -62,6 +62,7 @@ public class PanelAleatorio extends PanelBasico{
 	//Redefinimos el método clone para aplicar la regla covariante
 	//Todos los atributos son de tipo primitivo y se copian al hacer
 	//la copia superficial sobre el objeto receptor de la llamada.
+	@Override
 	public PanelAleatorio clone() {
 		return (PanelAleatorio)super.clone();
 	}

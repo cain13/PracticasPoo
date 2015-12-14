@@ -9,6 +9,8 @@ public abstract class ElementoPasivo extends Elemento {
 	public ElementoPasivo(int x, int y,int cantidad) {
 		// TODO Apéndice de constructor generado automáticamente
 		super(x, y);
+		if (cantidad < 0)
+			throw new IllegalArgumentException("el valor de cantidad debe ser mayor o igual que 0");
 		super.escenario = null;
 		this.cantidad = cantidad;
 	
