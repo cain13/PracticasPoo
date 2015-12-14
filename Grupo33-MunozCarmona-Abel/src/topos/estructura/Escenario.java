@@ -49,8 +49,6 @@ public class Escenario {
 	private GestionJuego partida;
 	private Pantalla pantalla; 
 	
-	// Propiedades implementadas "EXTRA"
-	private int cantidaTopos; 
 	/**
 	 * Constructor que construye estableciendo las dimensiones: ancho y alto,
 	 * en el proceso de construcción se inicializa la tabla que almacena los paneles, 
@@ -76,7 +74,6 @@ public class Escenario {
 		this.elementos = new HashMap<Posicion,Elemento>();
 		this.partida = null;
 		this.pantalla = null;
-		this.cantidaTopos = 0;
 		for(int y = 0; y < alto; y++){
 			for(int x = 0; x < ancho; x++){
 				paneles[x][y] = new PanelBasico(x,y);
@@ -94,16 +91,17 @@ public class Escenario {
 	
 		for(int y = 0; y < alto; y++){
 			for(int x = 0; x < ancho; x++){
-				lista.add(paneles[x][y]);
+				lista.add(paneles[x][y].clone());
 			}
 		}	
 		return lista;
 	}
 	
 	/**
-	 * Método de consulta que dada una posicion pasada por parametro devuelve el panel situado en esa posicion.
+	 * Método de consulta que dada una posicion pasada por parametro devuelve un clon del panel
+	 * situado en esa posicion.
 	 * @param posicion del panel que se quiere obtener.
-	 * @return PanelBasico, devuelve el panel en esa posicion.
+	 * @return PanelBasico, devuelve el clon del panel en esa posicion.
 	 */
 	public PanelBasico getPanel(Posicion posicion){
 		// Compruebo que la posicion este dentro del escenario
@@ -116,7 +114,8 @@ public class Escenario {
 	}
 	
 	/**
-	 * Método que inserta/sustituye un panel recibido por parametro en su posicion dentro del escenario.
+	 * Método que inserta/sustituye por un clon del panel recibido
+	 * por parametro en su posicion dentro del escenario.
 	 * @param panel para insertar en la tabla.
 	 */
 	public void setPanel(PanelBasico panel){
@@ -170,7 +169,7 @@ public class Escenario {
 	
 	/**
 	 * Método de consulta para consultar la posición del objetivo.
-	 * @return posicion, devuelve la posición del objetivo.
+	 * @return posicion, devuelve una copia posición del objetivo.
 	 */
 	public Posicion getObjetivo(){
 		return new Posicion(objetivo);
@@ -195,11 +194,11 @@ public class Escenario {
 	
 	// Implementacion Sesion 4
 	/**
-	 * Metodo que añade los topos pasados por parametro dinamico, comprueba no haya ninguno topo en la posicion
-	 * del topo a insertar y que la posición del topo esta dentro del escenario en ese caso lo añade a la lista topos, 
-	 * en caso contrario lo inserta en una lista con los topos rechazados y devuelve la lista de topos rechazados. 
-	 * @param topos los topos que se quieren insertar en el ecenario.
-	 * @return devuelve la lista de topos rechazados.
+	 * Metodo que añade los elementos pasados por parametro dinamico, comprueba no haya ninguno elemento en la posicion
+	 * del elemento a insertar y que la posición del elemento esta dentro del escenario en ese caso lo añade a la lista elementos, 
+	 * en caso contrario lo inserta en una lista con los elementos rechazados y devuelve la coleccion de elementos rechazados. 
+	 * @param elementos los elementos que se quieren insertar en el ecenario.
+	 * @return devuelve coleccion de elementos rechazados.
 	 */
 	public Collection<Elemento> addElementos(Elemento... elementos){
 		LinkedList<Elemento> elementosRechazados = new LinkedList<Elemento>();
@@ -207,7 +206,7 @@ public class Escenario {
 		for(Elemento elemento : elementos){
 			if(!hayElemento(elemento.getPosicion())){
 				elemento.setEscenario(this);
-				// Compruebo que el topo este dentro del escenario antes de insertarlo
+				// Compruebo que el elemento este dentro del escenario antes de insertarlo
 				if(estaDentro(elemento.getPosicion()))
 					this.elementos.put(elemento.getPosicion(), elemento);
 			}else{
@@ -219,9 +218,9 @@ public class Escenario {
 	}
 	
 	/**
-	 * Método de consulta que consulta la posición de un topo pasado por parametro.
-	 * @param posicion la cual queremos comprobar si hay topo.
-	 * @return devuelve el objeto topo que se encuentra en esa posción o nulo si no hay topo.
+	 * Método de consulta que consulta la posición de un elemento pasado por parametro.
+	 * @param posicion la cual queremos comprobar si hay elemento.
+	 * @return devuelve el elemento que se encuentra en esa posción o nulo si no hay elemento.
 	 */
 	public Elemento getElemento(Posicion posicion){
 		if((posicion.getX() >= 0 && posicion.getX() < ancho) && (posicion.getY() >= 0 && posicion.getY() < alto))
@@ -232,9 +231,9 @@ public class Escenario {
 	}
 	
 	/**
-	 * Método de consulta para consultar si hay un topo en una posición pasada por parametro.
-	 * @param posicion la cual queremos comprobar si hay topo. 
-	 * @return boolean que devulve si hay o no topo en esa posición.
+	 * Método de consulta para consultar si hay un elemento en una posición pasada por parametro.
+	 * @param posicion la cual queremos comprobar si hay elemento. 
+	 * @return boolean que devulve si hay o no un elementos en esa posición.
 	 */
 	public boolean hayElemento(Posicion posicion){
 		if(getElemento(posicion) != null)
@@ -244,17 +243,15 @@ public class Escenario {
 	}
 	
 	/**
-	 * Método que devuelve una copia de la lista de topos que en el escenario.
-	 * @return devuelve una copia de la lista de topos que hay en el escenario
+	 * Método que devuelve una coleccion de elementos que hay en el escenario.
+	 * @return devuelve una copia de elementos que hay en el escenario
 	 */
 	public Collection<Elemento> getElementos(){
 		
 		return this.elementos.values();
 				
 	}
-	// Fin implementacion Sesion 4
-	
-	// Implementacion Sesion 5
+
 	/**
 	 * Método que hace referencia al objeto gestion de juego encargado de la partida.
 	 * @return devuelve el objeto Gestion de Juego actual.
@@ -316,7 +313,7 @@ public class Escenario {
 	
 	/**
 	 * Método encargado de actualizar tanto los paneles que forman el escenario, 
-	 * como el estado de los topos en la partida.
+	 * como el estado de los elementos en la partida.
 	 */
 	public void actualiza(){
 		for(int y = 0; y < alto; y++){
@@ -346,7 +343,7 @@ public class Escenario {
 
 	/**
 	 * Método para disparar sobre los objetos del juego, solo se puede disparar sobre los paneles visibles o 
-	 * sobre los topos que hay en el escenario.
+	 * sobre los elementos que hay en el escenario.
 	 */
 	public void disparo(){
 		
@@ -356,7 +353,7 @@ public class Escenario {
 				this.getPanel(new Posicion(this.objetivo)).golpear();
 			}else{
 				if(this.hayElemento(new Posicion(this.objetivo))){
-					// Variable local para guardar la referencia al topo.
+					// Variable local para guardar la referencia al elementos.
 					Elemento elementoAuxiliar = this.getElemento(this.objetivo);
 					this.partida.restaDisparo(); // Resto un disparo
 				
@@ -399,7 +396,6 @@ public class Escenario {
 				"/"+ partida.getPuntosTotales());
 		pantalla.dibujar();
 	}
-	// Fin implementacion Sesion 5	
 	
 	// Implementacion "EXTRA" 
 	/**
@@ -429,7 +425,7 @@ public class Escenario {
 	}
 	
 	/**
-	 * Método que añade un numero de topos segun el ancho del escenario y 
+	 * Método que añade un numero de elementosActivos segun el ancho del escenario y 
 	 * los posiciona aleatoriamente en el escenario, 
 	 */
 	private void ElementosActivosAleatorios(){
@@ -467,6 +463,11 @@ public class Escenario {
 			}
 		}
 	}
+	
+	/**
+	 * Método que añade un numero de elementosPasivos segun el ancho del escenario y 
+	 * los posiciona aleatoriamente en el escenario, 
+	 */
 	private void ElementosPasivosAleatorios(){
 		Random random = new Random();
 		int x = random.nextInt(ancho-1);
@@ -498,6 +499,7 @@ public class Escenario {
 			}
 		}
 	}
+	
 	/**
 	 * Método que coloca en las tres primeras columnas un tipo distinto de panel heredado de panel basico y
 	 * el resto de columnas asta completar el ancho coloca un tipo de panel heredad aleatoriamente.
@@ -538,9 +540,9 @@ public class Escenario {
 	}
 	
 	/**
-	 * Método que inserta el numero de topos que hay en el escenario, 
-	 * para poder contabilizar la cantidad de topos con el que se inicializa un escenario.
-	 * @param cantidadTopos valor entero con la cantidad de topos con el que se inicializa la partida. 
+	 * Método que inserta el numero de elementos que hay en el escenario, 
+	 * para poder contabilizar la cantidad de puntos con el que se inicializa un escenario.
+	 * @param valor entero con la cantidad de puntos que aportan elementos con el que se inicializa la partida. 
 	 */
 	private int getElementosPuntables(Collection<Elemento> collection){
 		int puntosTotales = 0;
@@ -558,12 +560,6 @@ public class Escenario {
 		return puntosTotales;
 	}
 	
-	/**
-	 * Método de consulta que me devuelve la cantidad de topos que quedan en el escenario.
-	 * @return
-	 */
-	public int getCantidadTopos(){
-		return this.cantidaTopos;
-	}
+	
 	
 }

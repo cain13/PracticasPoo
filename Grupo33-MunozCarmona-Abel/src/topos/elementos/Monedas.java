@@ -1,18 +1,18 @@
 package topos.elementos;
 /**
- * Los topos son los personajes del juego que se ocultan detrás de los paneles, 
- * el objetivo deljugador es disparar a los topos para eliminarlos del juego y conseguir puntos. 
+ * Clase que extiende de ElementoPasivo e implementa la interfaz de control.
+ * La clase monedas aporta una cantidad de puntos al juego. 
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
 public class Monedas extends ElementoPasivo implements InterfazControl{
 
 	/**
-	 * Construcor que construye un objeto topo el cual inicializa en la posicion recibida por parametro x e y, 
-	 * con el escenario con valor nulo para despues pasarle la referencia del escenario en el que esta el topo,
-	 * inicializo el instante actual en el momento del tiempo que es creado, creando una marca de tiempo.
-	 * @param x valor entero para inicializar el topo en el valor de la coordenada x.
-	 * @param y valor entero para inicializar el topo en el valor de la coordenada y.
+	 * Constructor que construye el elemento en las coordenadas recibidas por parametro 
+	 * y la cantidad de puntos que aporta al juego.
+	 * @param x entero con la coordenada en el eje x.
+	 * @param y entero con la coordenada en el eje y.
+	 * @param puntos entero con la cantidad de puntos que aporta al juego.
 	 */
 	public Monedas(int x, int y,int puntos){
 		super(x, y, puntos);
@@ -20,8 +20,7 @@ public class Monedas extends ElementoPasivo implements InterfazControl{
 
 
 	/**
-	 * Método que devuelve la ruta en la que esta la imagen del topo.
-	 * @return String con la ruta de la imagen del topo.
+	 * Método sobrecargado que devuelve la ruta en la que esta la imagen del elemento.
 	 */
 	@Override
 	public String getImagenElemento() {
@@ -29,7 +28,9 @@ public class Monedas extends ElementoPasivo implements InterfazControl{
 		return "imagenes/monedas.png";
 	}
 
-
+	/**
+	 * Metodo sobrecargado que devuelve los puntos que aporta el elemento al juego.
+	 */
 	@Override
 	public int getPuntosElementos() {
 		// TODO Apéndice de método generado automáticamente

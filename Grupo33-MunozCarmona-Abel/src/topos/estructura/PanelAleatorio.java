@@ -57,7 +57,7 @@ public class PanelAleatorio extends PanelBasico{
 	}
 	// Fin implementacion Sesion 6
 	
-	//No redefine equals / hashCode xq no añade nuevas propiedades.
+	//No redefine equals / hashCode por que no añade nuevas propiedades.
 	
 	//Redefinimos el método clone para aplicar la regla covariante
 	//Todos los atributos son de tipo primitivo y se copian al hacer

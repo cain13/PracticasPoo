@@ -121,6 +121,10 @@ public class PanelBasico implements Cloneable{
 		this.visible = true;
 	}
 
+	/**
+	 *  Método sobrecargado hasCode que construye el hash de identificacion del objeto 
+	 *  en base a la posicion del Panel.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -149,12 +153,18 @@ public class PanelBasico implements Cloneable{
 		return true;
 	}
 
+	/**
+	 *  Método de consulta que devuelve el nombre del objeto con los valores de la posicion y la visibilidad.
+	 */
 	@Override
 	public String toString() {
 		return getClass().getName() + " [posicion=" + posicion + ", visible=" + visible
 				+ "]";
 	}
 	
+	/**
+	 *  Método que devuelve una copia superficial del objeto.
+	 */
 	protected PanelBasico copiaSuperficial(){
 		PanelBasico copia = null;
 		
@@ -168,6 +178,10 @@ public class PanelBasico implements Cloneable{
 		return copia;
 	}
 	
+	/**
+	 *  Método que devuelve una copia profunda del objeto 
+	 *  y devuelve la copia profunda del panel.
+	 */
 	public PanelBasico clone() {
 		PanelBasico copia = copiaSuperficial();
 		

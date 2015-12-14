@@ -1,22 +1,22 @@
 package topos.elementos;
 
 import topos.estructura.Direccion;
-import topos.estructura.Posicion;
+
 /**
+ * Clase abstracta que extiende de elementoActivo e implementa la interfaz de control de elementos puntuables.
  * Los topos son los personajes del juego que se ocultan detrás de los paneles, 
- * el objetivo deljugador es disparar a los topos para eliminarlos del juego y conseguir puntos. 
+ * el objetivo deljugador es disparar a los topos para eliminarlos del juego y conseguir puntos.
+ * De esta clase extienden 3 clase de topos. 
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
 public abstract class TopoPadre extends ElementoActivo implements InterfazControl{
 	
-	// Propiedades implementadas en la Sesion 2
 	/**
-	 * Construcor que construye un objeto topo el cual inicializa en la posicion recibida por parametro x e y, 
-	 * con el escenario con valor nulo para despues pasarle la referencia del escenario en el que esta el topo,
-	 * inicializo el instante actual en el momento del tiempo que es creado, creando una marca de tiempo.
+	 * Construcor que construye un objeto Topo el cual inicializa en la posicion recibida por parametro x e y, 
 	 * @param x valor entero para inicializar el topo en el valor de la coordenada x.
 	 * @param y valor entero para inicializar el topo en el valor de la coordenada y.
+	 * @param puntos valor entero con los puntos que aporta el elemento al juego.
 	 */
 	public TopoPadre(int x, int y,int puntos){
 		super(x, y, puntos);
@@ -26,47 +26,23 @@ public abstract class TopoPadre extends ElementoActivo implements InterfazContro
 	/**
 	 * Método que comprueba si el topo tiene un escenario asignado y si en la posicion del topo el panel que hay es visible,
 	 * despues comprueba si a pasado el tiempo de espera para poder moverse y si es asi crea una direccion aleatoria y
-	 * comprueba si hay si puede desplazarse a esa direccion y si no hay un topo en esa direccion, 
-	 * lo desplaza en la direccion aleatoria y actualiza el instanteActual al tiempo en el que se desplaza. 
-	 * @return 
+	 * comprueba si hay si puede desplazarse a esa direccion y si no hay otro elemento en esa direccion.
 	 */
 	@Override
-	public boolean actuar(){
-		if(this.getEscenario() != null && puedeMoverse()){
-			if((System.currentTimeMillis() - instanteActual) > ESPERA_MOVIMIENTOS){
-				Direccion direccion = calculaDireccion();
-				Posicion aleatoria = this.getPosicion().getVecina(direccion);
-				
-				if(this.getEscenario().estaDentro(aleatoria) && !this.getEscenario().hayElemento(aleatoria)){
-					this.desplazar(direccion);
-					instanteActual = System.currentTimeMillis();
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+	public abstract boolean actuar();
 	
-	
-	
-	
+
 	/**
-	 * Método que devuelve la ruta en la que esta la imagen del topo.
-	 * @return String con la ruta de la imagen del topo.
+	 * Método sobrecargado que devuelve una booleana que comprueba si la posicion es visible.
 	 */
-	@Override
-	public String getImagenElemento() {
-		// TODO Apéndice de método generado automáticamente
-		return "imagenes/topo-torpe.png";
-	}
-
-
 	@Override
 	public boolean puedeMoverse() {
 		return true;
 	}
 
-
+	/**
+	 * Método sobrecargado que devuelve una direccion calculada menos la ultima en la que se a desplazado.
+	 */
 	@Override
 	public Direccion calculaDireccion() {
 		Direccion direccion = Direccion.direccionAleatoria();

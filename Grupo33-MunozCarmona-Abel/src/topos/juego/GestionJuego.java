@@ -125,13 +125,11 @@ public class GestionJuego {
 	
 	// Implementacion "EXTRA"
 	/**
-	 * Método que hace referencia al escenario en el que se esta jugando e inserta la cantidad de topos
-	 * que hay al comenzar la partida.
+	 * Método que hace referencia al escenario en el que se esta jugando al comenzar la partida.
 	 * @param escenario escenario actual en el que se esta jugando.
 	 */
 	public void setEscenario(Escenario escenario){
 		this.escenario = escenario;
-		escenario.getCantidadTopos();
 		
 	}
 	
@@ -169,14 +167,26 @@ public class GestionJuego {
 	}
 	// Fin Implementacion "EXTRA"
 
+	/**
+	 * Método get que devuelve los puntos pendientes en el juego.
+	 * @return valor entero con los puntos pendiendtes de la partida.
+	 */
 	public int getPuntosPendientes() {
 		return puntosPendientes;
 	}
 
+	/**
+	 * Método actualiza los puntos pendientes a mostrar en la ventana de juego.
+	 * @param valor entero con la cantidad de puntos a decrementar.
+	 */
 	public void calculaPuntosPendientes(int puntosPendientes) {
 		this.puntosPendientes -= puntosPendientes;
 	}
 
+	/**
+	 * Método que devuelve los puntos totales de juego.
+	 * @return valor entero con los puntos totales de la partida.
+	 */
 	public int getPuntosTotales() {
 		return puntosTotales;
 	}

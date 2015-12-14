@@ -3,20 +3,21 @@ package topos.elementos;
 import topos.estructura.Direccion;
 import topos.estructura.Posicion;
 /**
- * Los topos son los personajes del juego que se ocultan detrás de los paneles, 
- * el objetivo deljugador es disparar a los topos para eliminarlos del juego y conseguir puntos. 
+ * Clase que extiende de TopoPadre que implementa la interfaz de control.
+ * Las ToposCiegos son personajes del juego que se ocultan detrás de los paneles, 
+ * un topo ciego puede moverse siempre. 
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
  *
  */
 public class TopoCiego extends TopoPadre{
 
 	private Direccion ultimaDireccion;
+
 	/**
-	 * Construcor que construye un objeto topo el cual inicializa en la posicion recibida por parametro x e y, 
-	 * con el escenario con valor nulo para despues pasarle la referencia del escenario en el que esta el topo,
-	 * inicializo el instante actual en el momento del tiempo que es creado, creando una marca de tiempo.
+	 * Construcor que construye un objeto TopoCiego el cual inicializa en la posicion recibida por parametro x e y, 
 	 * @param x valor entero para inicializar el topo en el valor de la coordenada x.
 	 * @param y valor entero para inicializar el topo en el valor de la coordenada y.
+	 * @param puntos valor entero con los puntos que aporta el elemento al juego.
 	 */
 	public TopoCiego(int x, int y,int puntos){
 		super(x, y, puntos);
@@ -24,11 +25,9 @@ public class TopoCiego extends TopoPadre{
 
 	
 	/**
-	 * Método que comprueba si el topo tiene un escenario asignado y si en la posicion del topo el panel que hay es visible,
-	 * despues comprueba si a pasado el tiempo de espera para poder moverse y si es asi crea una direccion aleatoria y
-	 * comprueba si hay si puede desplazarse a esa direccion y si no hay un topo en esa direccion, 
-	 * lo desplaza en la direccion aleatoria y actualiza el instanteActual al tiempo en el que se desplaza. 
-	 * @return 
+	 * Método que comprueba si el elemento tiene un escenario asignado y si puede moverse,
+	 * despues comprueba si a pasado el tiempo de espera para poder moverse y si es asi,
+	 * calcula una direccion aleatoria y se desplaza. 
 	 */
 	@Override
 	public boolean actuar(){
@@ -49,8 +48,7 @@ public class TopoCiego extends TopoPadre{
 
 
 	/**
-	 * Método que devuelve la ruta en la que esta la imagen del topo.
-	 * @return String con la ruta de la imagen del topo.
+	 * Método que devuelve la ruta en la que esta la imagen del elemento.
 	 */
 	@Override
 	public String getImagenElemento() {
@@ -58,7 +56,9 @@ public class TopoCiego extends TopoPadre{
 		return "imagenes/topo-ciego.png";
 	}
 
-
+	/**
+	 * Método sobrecargado que devuelve una direccion calculada menos la ultima en la que se a desplazado.
+	 */
 	@Override
 	public Direccion calculaDireccion() {
 		Direccion direccion = Direccion.direccionAleatoria();
@@ -68,9 +68,5 @@ public class TopoCiego extends TopoPadre{
 		ultimaDireccion = direccion;
 		return direccion;
 	}
-
-
-
-
 	
 }

@@ -16,7 +16,6 @@ public class Posicion implements Cloneable{
 	 * @param x valor inicial de x.
 	 * @param y valor inicial de y.
 	 */
-	
 	public Posicion(int x, int y){
 		if (x < 0)
 			throw new IllegalArgumentException("el valor de x debe ser mayor o igual que 0");
@@ -138,7 +137,11 @@ public class Posicion implements Cloneable{
 		return posicion;
 	}
 	
-	
+	/**
+	 *  Método sobrecargado equals que compara si dos objetos son iguales o no.
+	 * @param Objeto a comparar con el receptor de la llamada.
+	 * @return booleana, devuelve si son iguales o no.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)  return true;  
@@ -152,6 +155,11 @@ public class Posicion implements Cloneable{
 		return (this.x == otro.x && this.y == otro.y);
 	}
 	
+	/**
+	 *  Método sobrecargado hasCode que construye el hash de identificacion del objeto 
+	 *  de la llamada en base a las coordenadas de la posicion.
+	 * @return entero, con el hash generado del objeto.
+	 */
 	@Override
 	public int hashCode() {
 		int primo = 31;
@@ -163,10 +171,18 @@ public class Posicion implements Cloneable{
 		return result;
 	}
 	
+	/**
+	 *  Método de consulta que devuelve el nombre del objeto con los valores de las coordenadas.
+	 * @return String, con el nombre y valores de las coordenadas del objeto.
+	 */
 	public String toString(){
 		return getClass().getName() + "[x = " + x +	", y = " + y + "]";
 	}
 
+	/**
+	 *  Método que devuelve una copia superficial del objeto y devuelve su posicion.
+	 * @return Posicion, devuelve una copia superficial de la posicion.
+	 */
 	private Posicion copiaSuperficial(){
 		Posicion copia = null;
 		
@@ -181,10 +197,14 @@ public class Posicion implements Cloneable{
 		return copia;
 	}
 	
+	/**
+	 *  Método que devuelve una copia profunda del objeto y devuelve su posicion.
+	 * @return Posicion, devuelve una copia profunda de la posicion.
+	 */
 	@Override
 	public Posicion clone() {
 		Posicion copia = copiaSuperficial();
-		return copia;
+		return new Posicion(copia);
 	}
 	
 }
