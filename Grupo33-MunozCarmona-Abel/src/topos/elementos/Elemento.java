@@ -50,7 +50,7 @@ public abstract class Elemento implements Cloneable{
 		
 	/**
 	 * Método que recibe por parametro el escenario al que hace referencia el elemento.
-	 * @return escenario al que hace referencia el elemento.
+	 * @param escenario al que hace referencia.
 	 */
 	public void setEscenario(Escenario escenario){
 		this.escenario = escenario;
@@ -84,7 +84,8 @@ public abstract class Elemento implements Cloneable{
 	/**
 	 *  Método sobrecargado equals que compara si dos objetos son iguales o no,
 	 *  en base al escenario y a la posicion que ocupa en el, el elemento.
-	 * @param Objeto a comparar con el receptor de la llamada.
+	 * @param obj objeto a comparar con el receptor de la llamada.
+	 * @return boolean que devuelve true si son iguales
 	 */
 	@Override
 	public boolean equals(Object obj) {

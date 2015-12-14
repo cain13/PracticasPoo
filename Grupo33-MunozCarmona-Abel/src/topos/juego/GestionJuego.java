@@ -29,8 +29,9 @@ public class GestionJuego {
 	 * de la partida instroducido por parametro y el numero de disparos disponibles para el jugador instroducido por parametro,
 	 * se iniciliza los puntos, inicio y toposJugando a 0, el escenario se inicializa a null y texto partida a vacio "".
 	 * Hemos implementado 
-	 * @param segundos
-	 * @param disparosRestantes
+	 * @param segundos valor entero segundos que dura la partida
+	 * @param disparosRestantes valor entero disparos
+	 * @param puntosEnJuego valor entero puntos en juego
 	 */
 	public GestionJuego(long segundos, int disparosRestantes,int puntosEnJuego){
 		this.segundos = segundos;
@@ -177,7 +178,7 @@ public class GestionJuego {
 
 	/**
 	 * Método actualiza los puntos pendientes a mostrar en la ventana de juego.
-	 * @param valor entero con la cantidad de puntos a decrementar.
+	 * @param puntosPendientes entero con la cantidad de puntos a decrementar.
 	 */
 	public void calculaPuntosPendientes(int puntosPendientes) {
 		this.puntosPendientes -= puntosPendientes;

@@ -1,4 +1,6 @@
 package topos.estructura;
+
+
 /**
  * Esta clase representa una posición en el plano XY de números enteros. 
  * @author Abel Munñoz Carmona G.3.3 y Pedro Enrique Raja Martinez G.1.1
@@ -47,7 +49,7 @@ public class Posicion implements Cloneable{
 	
 	/**
 	 * Método que actualiza el valor de x al valor recibido por parametro.
-	 * @param y establece el valor de x al pasado por parametro, 
+	 * @param x establece el valor de x al pasado por parametro, 
 	 * debe ser un valor entero. 
 	 */
 	public void setX(int x){
@@ -139,7 +141,7 @@ public class Posicion implements Cloneable{
 	
 	/**
 	 *  Método sobrecargado equals que compara si dos objetos son iguales o no.
-	 * @param Objeto a comparar con el receptor de la llamada.
+	 * @param obj a comparar con el receptor de la llamada.
 	 * @return booleana, devuelve si son iguales o no.
 	 */
 	@Override

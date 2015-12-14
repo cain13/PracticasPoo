@@ -18,7 +18,7 @@ public abstract class ElementoPasivo extends Elemento {
 	 * y la cantidad que aportan al juego.
 	 * @param x	valor entero con la coordenada en el eje x.
 	 * @param y valor entero con la coordenada en el eje x.
-	 * @param valor entero con la cantidad que aporta al juego.
+	 * @param cantidad valor entero con la cantidad que aporta al juego.
 	 */
 	public ElementoPasivo(int x, int y,int cantidad) {
 		// TODO Apéndice de constructor generado automáticamente

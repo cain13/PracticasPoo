@@ -56,7 +56,7 @@ public abstract class ElementoActivo extends Elemento implements InterfazControl
 	
 	/**
 	 * Método al cazar/golpear un topo actualiza la partida sumando un punto por atrapar un topo.
-	 * @param juego referencia a GestionJuego para sumar un punto 
+	 * @param partida juego referencia a GestionJuego para sumar un punto 
 	 */
 	@Override
 	public void actualizarPartida(GestionJuego partida) {
